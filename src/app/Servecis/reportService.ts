@@ -12,19 +12,19 @@ export class reportService {
 constructor( private http: HttpClient , private router :Router) {}
 saveReport(obj:any ){
 
-   return this.http.post('http://localhost:7000/report/save' ,obj)
+   return this.http.post('https://blog-in-opal.vercel.app/report/save' ,obj)
 }
 
 getArticlesReported(){
     
     
-    return   this.http.get('http://localhost:7000/report/get')
+    return   this.http.get('https://blog-in-opal.vercel.app/report/get')
   } 
   getReports(id:string){
     const obj={
         id:id
     }
     
-    return   this.http.post('http://localhost:7000/report/getReports',obj)
+    return   this.http.post('https://blog-in-opal.vercel.app/report/getReports',obj)
   } 
 }

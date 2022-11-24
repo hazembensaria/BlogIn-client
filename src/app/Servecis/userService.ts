@@ -23,7 +23,7 @@ createUser(email:string,password:string,name : string){
     const fulldate=day+'-'+month+'-'+year
   const user={email:email,password:password,name:name ,formatDate :fulldate}
     console.log(user)
-    this.http.post<{history : Array<string>, followings : Array<string>,followers :Array<string>,  profession : string,bio:string ,age :number,token:string, _id:string , role:string , isnew :boolean ,name :string , email :string ,image :string}>('http://localhost:7000/user/signUp',user).subscribe(result=>{
+    this.http.post<{history : Array<string>, followings : Array<string>,followers :Array<string>,  profession : string,bio:string ,age :number,token:string, _id:string , role:string , isnew :boolean ,name :string , email :string ,image :string}>('https://blog-in-opal.vercel.app/user/signUp',user).subscribe(result=>{
         const currentuser : userModel = result
         console.log(currentuser);
         
@@ -43,7 +43,7 @@ createUser(email:string,password:string,name : string){
             password:password
         }
         
-         this.http.post<{history : Array<string>, followings : Array<string>,followers :Array<string>,  profession : string,bio:string ,age :number,token:string, _id:string , role:string  ,isnew : boolean ,name :string , email :string,image :string}>('http://localhost:7000/user/login',auth)
+         this.http.post<{history : Array<string>, followings : Array<string>,followers :Array<string>,  profession : string,bio:string ,age :number,token:string, _id:string , role:string  ,isnew : boolean ,name :string , email :string,image :string}>('https://blog-in-opal.vercel.app/user/login',auth)
          .subscribe(result=>{
               if(result.token){
                 const user : userModel = result
@@ -75,7 +75,7 @@ createUser(email:string,password:string,name : string){
                 email:email,
                 password:password
             }
-             return this.http.post<{token :String}>('http://localhost:7000/user/login',auth)
+             return this.http.post<{token :String}>('https://blog-in-opal.vercel.app/user/login',auth)
               }         
 // --------------------------------saving data in local storage ----------------------------
 private saveAuthData(token :string  ){
@@ -119,13 +119,13 @@ localStorage.setItem("token" ,token)
 
   getUser(){
 
-    return this.http.get<{history: Array<string>,readLater: Array<string>, followings : Array<string>,followers :Array<string>, profession : string,interest :Array<{name :string}>, bio:string ,age :number, role:string , image : string , _id :string , token : string , isnew  :boolean ,name :string , email :string }>('http://localhost:7000/user')
+    return this.http.get<{history: Array<string>,readLater: Array<string>, followings : Array<string>,followers :Array<string>, profession : string,interest :Array<{name :string}>, bio:string ,age :number, role:string , image : string , _id :string , token : string , isnew  :boolean ,name :string , email :string }>('https://blog-in-opal.vercel.app/user')
 
   }
   
   getPopularUser(){
 
-    return this.http.get('http://localhost:7000/user/popular')
+    return this.http.get('https://blog-in-opal.vercel.app/user/popular')
 
   }
   
@@ -134,7 +134,7 @@ localStorage.setItem("token" ,token)
       icon :icon
     }
     this.profilIconListner.next(icon)
-    return this.http.post('http://localhost:7000/user/changeIcon' ,obj)
+    return this.http.post('https://blog-in-opal.vercel.app/user/changeIcon' ,obj)
 
   }
 
@@ -142,7 +142,7 @@ localStorage.setItem("token" ,token)
   const obj ={
     name :name
   }
-  return this.http.post('http://localhost:7000/user/searchUser' ,obj)
+  return this.http.post('https://blog-in-opal.vercel.app/user/searchUser' ,obj)
 
 }
 
@@ -150,32 +150,32 @@ searchFreind(name :string){
   const obj ={
     name :name
   }
-  return this.http.post('http://localhost:7000/user/searchFreind' ,obj)
+  return this.http.post('https://blog-in-opal.vercel.app/user/searchFreind' ,obj)
 
 }
  getUserById( id : string){
   const obj ={
     id :id
   }
-  return this.http.post('http://localhost:7000/user/userById' ,obj)
+  return this.http.post('https://blog-in-opal.vercel.app/user/userById' ,obj)
 
  }
 
  upgradeProfile(user :any){
-  return this.http.post('http://localhost:7000/user/upgrade' ,user)
+  return this.http.post('https://blog-in-opal.vercel.app/user/upgrade' ,user)
  }
  followUser(id : string){
   const obj ={
     id :id
   }
-  return this.http.post('http://localhost:7000/user/followUser' ,obj)
+  return this.http.post('https://blog-in-opal.vercel.app/user/followUser' ,obj)
  }
 
  unfollowUser(id : string){
   const obj ={
     id :id
   }
-  return this.http.post('http://localhost:7000/user/unfollowUser' ,obj)
+  return this.http.post('https://blog-in-opal.vercel.app/user/unfollowUser' ,obj)
  }
  getFollowings(followers : string[] , nb? :number){
   const obj ={
@@ -183,10 +183,10 @@ searchFreind(name :string){
   }
   if(nb){
     const query = `?nbFreinds=${3*nb}`
-  return this.http.post('http://localhost:7000/user/followings'+query ,obj)
+  return this.http.post('https://blog-in-opal.vercel.app/user/followings'+query ,obj)
   }else{
       const query = `?nbFreinds=${3}`
-      return this.http.post('http://localhost:7000/user/followings'+query ,obj)
+      return this.http.post('https://blog-in-opal.vercel.app/user/followings'+query ,obj)
 
   }
 
@@ -196,7 +196,7 @@ searchFreind(name :string){
   const obj ={
     array :array
   }
-  return this.http.post('http://localhost:7000/user/getFollowersOrFollowings' ,obj)
+  return this.http.post('https://blog-in-opal.vercel.app/user/getFollowersOrFollowings' ,obj)
 
 }
 setUserHistory(id:string , allRadyExist :boolean ){
@@ -204,10 +204,10 @@ setUserHistory(id:string , allRadyExist :boolean ){
     id:id,
     allRadyExist:allRadyExist,
   }
-return   this.http.post('http://localhost:7000/user/setUserHistory',obj)
+return   this.http.post('https://blog-in-opal.vercel.app/user/setUserHistory',obj)
 }  
 
 orderUsersByPoints(){
-  return this.http.get<{resul:any[] , index : number}>('http://localhost:7000/user/orderUsersByPoints')
+  return this.http.get<{resul:any[] , index : number}>('https://blog-in-opal.vercel.app/user/orderUsersByPoints')
 }
 }

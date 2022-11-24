@@ -18,34 +18,34 @@ export class NoteService {
     sendnotes(obj :any){
         console.log(obj);
         
-        return   this.http.post('http://localhost:7000/notes/save',obj)
+        return   this.http.post('https://blog-in-opal.vercel.app/notes/save',obj)
       }   
 
       sendLink(obj :any){
         console.log(obj);
         
-        return   this.http.post('http://localhost:7000/notes/saveLink',obj)
+        return   this.http.post('https://blog-in-opal.vercel.app/notes/saveLink',obj)
       }   
 
 
       geyNotes(obj :any){
         console.log(obj);
         
-        return   this.http.post('http://localhost:7000/notes/get',obj)
+        return   this.http.post('https://blog-in-opal.vercel.app/notes/get',obj)
       }   
       getLinks(obj :any){
         console.log(obj);
         
-        return   this.http.post('http://localhost:7000/notes/getLinks',obj)
+        return   this.http.post('https://blog-in-opal.vercel.app/notes/getLinks',obj)
       }  
       deleteNote(obj :any){
         console.log(obj);
         
-        return   this.http.post('http://localhost:7000/notes/delete',obj)
+        return   this.http.post('https://blog-in-opal.vercel.app/notes/delete',obj)
       }  
       deleteLink(obj :any){
         console.log(obj);
         
-        return   this.http.post('http://localhost:7000/notes/deleteLink',obj)
+        return   this.http.post('https://blog-in-opal.vercel.app/notes/deleteLink',obj)
       }  
 }

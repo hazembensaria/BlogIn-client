@@ -26,26 +26,26 @@ showNotificationListener2 = new Subject<number>()
 deleteAllNotifications = new Subject()
 sendNotification(obj :any){
 
-  return   this.http.post('http://localhost:7000/notification/send',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/notification/send',obj)
 }
 getNotification(){
 
-  return   this.http.get<[{isRead :boolean}]>('http://localhost:7000/notification')
+  return   this.http.get<[{isRead :boolean}]>('https://blog-in-opal.vercel.app/notification')
 }
 changeNotificationsReadStateTotrue(){
-  return   this.http.get('http://localhost:7000/notification/changeState')
+  return   this.http.get('https://blog-in-opal.vercel.app/notification/changeState')
 }
 
 changeAcceptedState(id:string){
   const obj={
     id:id
   }
-  return   this.http.post('http://localhost:7000/notification/changeAcceptedState',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/notification/changeAcceptedState',obj)
 }
 deleteNotification(){
-  return   this.http.get('http://localhost:7000/notification/deleteNotification')
+  return   this.http.get('https://blog-in-opal.vercel.app/notification/deleteNotification')
 }
 sendShareNotification(obj :any){
-  return   this.http.post('http://localhost:7000/notification/sendShareNotification',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/notification/sendShareNotification',obj)
 }
 }

@@ -29,7 +29,7 @@ saveArticle(title : string|null , arr : Array<string> , name : string , image : 
         autherIcone : image,
         formatDate : fulldate
     }
-    this.http.post<{_id :string}>('http://localhost:7000/article/save' ,obj).subscribe(res=>{
+    this.http.post<{_id :string}>('https://blog-in-opal.vercel.app/article/save' ,obj).subscribe(res=>{
        
         this.router.navigate([`/edite/${res._id}`])
         
@@ -41,7 +41,7 @@ getArticle(id :string){
     const obj ={
         id: id
     }
-   return this.http.post<{scheduleDate:Date,isPublish:boolean,views : Array<string>, auther:string,collaborators : Array<string>,autherName :string ,sections: Array<string> , title :string , tags :Array<object> ,rating :Array<{id:string , stars:number}>}>('http://localhost:7000/article' ,obj)
+   return this.http.post<{scheduleDate:Date,isPublish:boolean,views : Array<string>, auther:string,collaborators : Array<string>,autherName :string ,sections: Array<string> , title :string , tags :Array<object> ,rating :Array<{id:string , stars:number}>}>('https://blog-in-opal.vercel.app/article' ,obj)
    
 }
 updateArticle(id : string , title :string|null , sections : Array<string>){
@@ -50,45 +50,45 @@ updateArticle(id : string , title :string|null , sections : Array<string>){
         title :title ,
         sections :sections
     }
- return   this.http.post<{sections: Array<string> , title :string}>('http://localhost:7000/article/update' ,obj)
+ return   this.http.post<{sections: Array<string> , title :string}>('https://blog-in-opal.vercel.app/article/update' ,obj)
 }
 getFinishArticles(){
-    return   this.http.get('http://localhost:7000/article/finished' )
+    return   this.http.get('https://blog-in-opal.vercel.app/article/finished' )
 
 }
 getCollabrationArticles(){
-  return   this.http.get('http://localhost:7000/article/collaboration' )
+  return   this.http.get('https://blog-in-opal.vercel.app/article/collaboration' )
 
 }
 getCollabrationArticlesForStats(){
-  return   this.http.get('http://localhost:7000/article/collaborationForStats' )
+  return   this.http.get('https://blog-in-opal.vercel.app/article/collaborationForStats' )
 
 }
 getOtherFinishArticles(id :string){
   const obj={
     id: id
   }
-  return   this.http.post('http://localhost:7000/article/otherFinished' ,obj )
+  return   this.http.post('https://blog-in-opal.vercel.app/article/otherFinished' ,obj )
 
 }
 getUnfinishArticles(){
-    return   this.http.get('http://localhost:7000/article/workingOn')
+    return   this.http.get('https://blog-in-opal.vercel.app/article/workingOn')
 
 }
 getAllArticles(nb?: number){
  if(nb){
   const query = `?nbArticle=${10*nb}`
-    return   this.http.get('https://blog-in-hazembensaria.vercel.app/article/all'+query)
+    return   this.http.get('https://blog-in-opal.vercel.app/article/all'+query)
  }
   const query = `?nbArticle=${10}`
-    return   this.http.get<any>('https://blog-in-hazembensaria.vercel.app/article/all'+query)
+    return   this.http.get<any>('https://blog-in-opal.vercel.app/article/all'+query)
 
 }
 getTrendingTags(){
-  return   this.http.get('http://localhost:7000/article/trendingTags')
+  return   this.http.get('https://blog-in-opal.vercel.app/article/trendingTags')
 }
 getArticleWantToRead(){
-  return   this.http.get('http://localhost:7000/article/articleWantToRead')
+  return   this.http.get('https://blog-in-opal.vercel.app/article/articleWantToRead')
 }
 publishArticle(id:string , tags : any){
     const obj ={
@@ -97,13 +97,13 @@ publishArticle(id:string , tags : any){
     }
     console.log(obj);
     
-    return   this.http.post('http://localhost:7000/article/publishArticle',obj )
+    return   this.http.post('https://blog-in-opal.vercel.app/article/publishArticle',obj )
 }
 searchArticle(name :string){
     const obj ={
       name :name
     }
-    return this.http.post('http://localhost:7000/article/searchArticle' ,obj)
+    return this.http.post('https://blog-in-opal.vercel.app/article/searchArticle' ,obj)
   
   }
 
@@ -114,7 +114,7 @@ searchArticle(name :string){
         auther: auther ,
         collabs :collabs
       }
-    return   this.http.post('http://localhost:7000/article/like',obj)
+    return   this.http.post('https://blog-in-opal.vercel.app/article/like',obj)
 
   }
 
@@ -123,7 +123,7 @@ searchArticle(name :string){
         id :id,
        nbStars:nbStars
       }
-    return   this.http.post('http://localhost:7000/article/ratingArticle',obj)
+    return   this.http.post('https://blog-in-opal.vercel.app/article/ratingArticle',obj)
   }
 
   searchInOtherProfile(id :string , itemToSearch : string){
@@ -131,7 +131,7 @@ searchArticle(name :string){
       id :id,
      itemToSearch :itemToSearch
     }
-  return   this.http.post('http://localhost:7000/article/searchInOtherProfile',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/article/searchInOtherProfile',obj)
   }
 
   searchByTagInOtherProfile( itemToSearch :Array<string | null>, id? :string ){
@@ -139,7 +139,7 @@ searchArticle(name :string){
       id :id,
      itemToSearch :itemToSearch
     }
-  return   this.http.post('http://localhost:7000/article/searchByTagInOtherProfile',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/article/searchByTagInOtherProfile',obj)
   }  
 
   addCollaborator(id :string ){
@@ -147,14 +147,14 @@ searchArticle(name :string){
       id :id,
   
     }
-  return   this.http.post('http://localhost:7000/article/addCollaborator',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/article/addCollaborator',obj)
   } 
   getCollaborators(collaborators :Array<string> ){
     const obj ={
       collaborators :collaborators,
   
     }
-  return   this.http.post('http://localhost:7000/article/getCollaborators',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/article/getCollaborators',obj)
   }
   
   readLaterArticle(id:string , allRadyExist : boolean){
@@ -162,14 +162,14 @@ searchArticle(name :string){
       id:id,
       allRadyExist : allRadyExist
     }
-  return   this.http.post('http://localhost:7000/article/readLater',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/article/readLater',obj)
   } 
   setReadTime(id:string , readTime : number){
     const obj ={
       id:id,
       readTime : readTime
     }
-  return   this.http.post('http://localhost:7000/article/setReadTime',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/article/setReadTime',obj)
   }
   setArticleViews(id:string , allRadyExist : boolean , auther : string , collabs : string[]){
     const obj ={
@@ -179,26 +179,26 @@ searchArticle(name :string){
       collabs : collabs
 
     }
-  return   this.http.post('http://localhost:7000/article/setArticleViews',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/article/setArticleViews',obj)
   }  
   getReadLaterArticles(readLater : string[]){
     const obj ={
       readLater :readLater
     }
-  return   this.http.post('http://localhost:7000/article/getReadLaterArticles',obj)
+  return   this.http.post('https://blog-in-opal.vercel.app/article/getReadLaterArticles',obj)
   } 
   deleteArticle(id:string) {
     const obj ={
       id:id,
     }
-    return   this.http.post('http://localhost:7000/article/delete',obj)
+    return   this.http.post('https://blog-in-opal.vercel.app/article/delete',obj)
   }
   switchCommentStat(id:string ,disabled:boolean){
     const obj ={
       id:id ,
       disabled:disabled
     }
-    return   this.http.post('http://localhost:7000/article/switchCommentStat',obj) 
+    return   this.http.post('https://blog-in-opal.vercel.app/article/switchCommentStat',obj) 
   }
 
   attachUser(id:string ,exist:boolean){
@@ -206,22 +206,22 @@ searchArticle(name :string){
       id:id ,
       exist :exist
     }
-    return   this.http.post('http://localhost:7000/article/attachUser',obj) 
+    return   this.http.post('https://blog-in-opal.vercel.app/article/attachUser',obj) 
   }
 
   schedule(obj:any){
    
-    return   this.http.post('http://localhost:7000/article/schedule',obj) 
+    return   this.http.post('https://blog-in-opal.vercel.app/article/schedule',obj) 
   }
   reschedule(obj:any){
    
-    return   this.http.post('http://localhost:7000/article/reschedule',obj) 
+    return   this.http.post('https://blog-in-opal.vercel.app/article/reschedule',obj) 
   }
   cancelSchedule(obj:any){
    
-    return   this.http.post('http://localhost:7000/article/cancelSchedule',obj) 
+    return   this.http.post('https://blog-in-opal.vercel.app/article/cancelSchedule',obj) 
   }
   rankingpoints(){
-    return   this.http.get<{views:number , shares:number , likes :number}>('http://localhost:7000/article/rankingpoints')
+    return   this.http.get<{views:number , shares:number , likes :number}>('https://blog-in-opal.vercel.app/article/rankingpoints')
   }
 }

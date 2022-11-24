@@ -18,20 +18,20 @@ saveComment(auther : string , autherName : string , autherIcone : string , conte
         content:content,
         articleId:articleId
     }
-   return this.http.post('http://localhost:7000/comment/save' ,obj)
+   return this.http.post('https://blog-in-opal.vercel.app/comment/save' ,obj)
 }
 
 getComments(obj :any){
     console.log(obj);
     
-    return   this.http.post('http://localhost:7000/comment/get',obj)
+    return   this.http.post('https://blog-in-opal.vercel.app/comment/get',obj)
   } 
   likeComment(id :string , isLikedByUser :boolean){
     const obj ={
         id :id,
         isLikedByUser :isLikedByUser
       }
-    return   this.http.post('http://localhost:7000/comment/like',obj)
+    return   this.http.post('https://blog-in-opal.vercel.app/comment/like',obj)
 
   }
 }

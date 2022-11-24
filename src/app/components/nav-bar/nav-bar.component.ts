@@ -22,7 +22,7 @@ nbNotifications!: number
 socket : any ;
 showSettings:boolean =false
 user:any
-readonly uri : string = 'http://localhost:7000'
+readonly uri : string = 'https://blog-in-opal.vercel.app'
   ngOnInit(): void {
     this.notificationService.deleteAllNotifications.subscribe(res=>{
       this.nbNotifications =0
