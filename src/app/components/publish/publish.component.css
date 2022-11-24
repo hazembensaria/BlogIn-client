@@ -1,0 +1,11 @@
+.ellipsis {
+   
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+
+   height: 5rem;
+}
+.fami{
+    font-family: 'Playfair Display', serif;
+}

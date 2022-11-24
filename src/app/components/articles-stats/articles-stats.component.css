@@ -1,0 +1,64 @@
+.active{
+    border-bottom: 3px rgb(255, 208, 0) solid;
+    color: rgb(107 114 128)
+    /* border-radius: 8px; */
+    /* background: rgb(145, 145, 145); */
+    /* color:wheat; */
+}
+.avatar::before,
+.avatar::after{
+ --scale:0;
+ --arraw-size:10px;
+ --tooltip-color:#333;
+  position: absolute;
+  top: -.25rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-200%) scale(0);
+  transition: 150ms transform;
+  transform-origin: bottom center;
+}
+.avatar::before{
+    
+  content: 'dzklfj qkdfjl qlkdfj qklsdfj lkqdjsf lk';
+  color: rgb(255, 255, 255);
+  max-width: 200%;
+  text-align: center;
+  width: max-content;
+
+  background: var(--tooltip-color)
+}
+
+.avatar:hover::before,
+.avatar:hover::after{
+  transform: scale(1);
+}
+.avatar::after{
+    --translate-y :calc(-1 *var(--arraw-size))
+    content: '';
+    border: var(--arraw-size) solid transparent;
+    border-top-color:var(--tooltip-color);
+    transform-origin: top center;
+}
+.av:hover > .ol{
+
+    animation: tran .3s forwards  ;
+    
+}
+@keyframes tran {
+    10%{
+        transform:translateY(-30%) scale(0.2);
+    }  
+    50%{
+        transform:translateY(-70%) scale(1.07);  
+    }
+    70%{
+        transform:translateY(-70%) scale(1.04);  
+    }
+    100%{
+        transform:translateY(-70%) scale(1);  
+    }
+}
+.av:hover{
+    cursor: default;
+   
+}

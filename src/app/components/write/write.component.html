@@ -1,0 +1,177 @@
+
+
+
+
+
+
+
+
+
+
+<mat-drawer-container class="example-container " [hasBackdrop]="true">
+    <mat-drawer #drawer mode="over" class=" lg:w-[400px] sm:w-full  pl-8 " >
+        <div class=" w-full flex justify-end pt-8 pr-8 text-3xl  ">
+            <button type="button"  (click)="drawer.toggle()">
+                <i class="fa-solid fa-xmark  "></i>
+            </button>
+          </div>
+     
+        <textarea [(ngModel)]="projectDescription" (focus)="focus($event)" (blur)="blur($event)"   type="text" name="title" placeholder="You can give a project description... " class=" fami  mt-8  w-[85%] min-h-[4rem] p-4 outline-none text-lg  resize-none " 
+                
+        oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+        <form (keyup)="autoSearchFreind($event)"  #myForm="ngForm" class="search relative w-[85%] mt-8 ">
+            
+            <div>
+              <input autocomplete="off"  name="people" [(ngModel)]="freindToSearch" required #people="ngModel" type="text" [placeholder]="'Search in '+ user?.name+' profile . . . '" required >
+            </div>
+        </form>
+        <div class="followers mt-8 flex flex-col py-2 scroll-smooth gap-3 w-[90%] overflow-y-scroll h-[8.2rem] ">
+            
+            <div class="follower w-full flex justify-start items-center gap-2 " *ngFor="let following of followings " >
+                <input (click)="addCollaborator(following._id )" type="checkbox" [checked]="newCollaborators.includes(following._id)">
+                <img [src]="'../../../assets/images/'+following.image"  class=" w-[30px] h-[30px] " alt="">
+            <div>{{following.name}}</div>
+            </div>
+        </div>
+        <div class=" mb-8 text-green-600 text-xs hover:cursor-pointer " (click)="loadMoreFreinds()">See More</div>
+        <button (click)="sendNotification()"  class="bg-[#03a811] pl-4 pr-4 flex justify-center text-white   h-[1.8rem] leading-4 items-center rounded-[20px] hover:cursor-pointer ">send request</button>
+
+    </mat-drawer>
+    <mat-drawer-content class="bg-white ">
+
+
+
+        <div class="lg:w-[30%] sm:w-full m-auto flex justify-center items-center bg-gray-50 lg:h-12 sm:h-8 sm:text-xs shadow-md " *ngIf="scheduleDate && !articleStat">This article will be publish On {{formatDate}}</div>
+
+        <div   class="father flex sm:flex-col justify-start min-h-[90vh]  lg:pt-[3rem] sm:pt-8 w-full  " id="new" >
+            <div (keyup)="autoSaveArticle($event)" id="left" class="left flex flex-col lg:w-[65%] sm:w-full pb-[5rem] sm:px-2 ">
+
+                <div class=" flex sm:flex-col lg:ml-[15rem] sm:ml-4  lg:justify-between sm:justify-center sm:gap-4 items-center mb-2  "> 
+                    <p *ngIf="!postId" class=" fami lg:text-3xl sm:text-xl font-semibold "> Owner {{user.name}}</p>
+                    <p *ngIf="postId" class=" fami lg:text-3xl sm:text-xl font-semibold "> Owner {{articleAutherName}}</p>
+                    
+                    <p *ngIf="!postId" (click)="saveArticle()"  class="save  pl-4 pr-4 h-8 text-white  bg-slate-400 hover:cursor-pointer rounded-[20px] flex justify-center items-center  " >Start saving this article </p>
+                 
+                    <button *ngIf="user._id===articleAuther" (click)="publishArticle()" [disabled]="!postId" class="bg-[#03a811] pl-4 pr-4 flex justify-center text-white  h-[1.8rem] leading-4 items-center rounded-[20px] hover:cursor-pointer ">
+                        <span *ngIf="!articleStat && !scheduleDate">Publish</span>
+                        <span *ngIf="!articleStat && scheduleDate">Reschedule</span>
+
+                        <span *ngIf="articleStat">Update</span></button>
+                      
+                    <div class="flex items-center sm:gap-4 lg:gap-16 justify-start lg:w-[10rem] sm:w-[4rem]">
+                        <button  [matMenuTriggerFor]="afterMenu">        
+                                <i class="fa-solid fa-ellipsis text-gray-500 hover:cursor-pointer text-xl "></i>
+                        </button>
+                        <mat-menu #afterMenu="matMenu" xPosition="after">
+                            <button  *ngIf="user._id===articleAuther || !postId"  (click)="drawer.toggle()" mat-menu-item class="  hover:bg-amber-50 " >Invite Collaborators</button>
+                            <button (click)="showLink=true" mat-menu-item>Add link</button>
+                            <button (click)="show=true" mat-menu-item>Add private note</button>
+
+                        </mat-menu>
+                        <div class="anim" *ngIf="saved"><i class="fa-solid fa-check text-[#03a811] text-lg "></i></div>
+
+                    </div>
+                    <!-- <ng-template class="anim"  #saving>saving...</ng-template> -->
+                </div>
+                <div class=" lg:ml-[15rem] sm:ml-4 lg:mb-8 sm:mb-4  " *ngIf="articleCollaborators.length">with 
+                     <span class="mr-2" *ngFor="let collab of articleCollaborators" >{{collab.name }}</span>
+                 </div>
+               
+                    <textarea  [(ngModel)]="title"  id="title" (mouseup)="listen($event)" (focus)="focus($event)" (blur)="blur($event)"
+                    (keydown.enter)="enter($event)" type="text" name="title" placeholder="Title..." class=" lg:pl-[15rem] sm:pl-2 w-full resize-none fami border-none outline-none lg:text-5xl sm:font-medium  sm:text-3xl lg:mb-8 " 
+                    oninput="this.style.height='5px';this.style.height = this.scrollHeight+'px'"
+                    ></textarea>
+           
+       
+                   <ng-container *ngFor="let element of p">
+                       <textarea [(ngModel)]="section[element]" [id]="'i'+element" (mouseup)="listen($event)" (keydown.enter)="enter1($event)" (focus)="focus($event)" (blur)="blur($event)"  
+                        class=" fami w-full text-gray-600 lg:pl-[15rem] sm:pl-2  border-none outline-none lg:text-2xl sm:text-xl  resize-none lg:mt-8 sm:mt-8 " 
+                         placeholder="Next Section..."  
+                         oninput="this.style.height='5px';this.style.height = this.scrollHeight+'px'"  >
+                       </textarea>
+                   </ng-container>
+                   <!-- <div class=" w-[5rem] h-[4rem] z-[999999999] bg-gray-300 absolute hidden "  #tooltip>qsdqd</div> -->
+
+                    
+               
+                <div  id="nn" class="lg:gap-2  lg:sc sm:flex justify-evenly anim  sm:w-full lg:h-[2.5rem] sm:h-12 lg:absolute sm:fixed sm:bottom-0 sm:left-0 lg:bg-gray-900 sm:bg-gray-200 sm:text-black text-white z-[12] lg:rounded-md lg:hidden lg:justify-start px-3 items-center " >
+                        <div class="hover:cursor-pointer "  (click)="showNote()"><i  class="fa-solid fa-message   "></i> Make Note</div>
+                        <div (click)="deleteSection()" class=" hover:cursor-pointer  border-l border-solid border-l-gray-600 pl-2 "><i class="fa-solid fa-trash"></i> Delete</div>
+                        <div (click)="showlink()" class=" hover:cursor-pointer border-l border-solid border-l-gray-600 pl-2 "><i class="fa-solid fa-link mr-1 "></i>Add Link</div>
+                        <div  class=" sm:hidden corner absolute w-[15px] h-[15px] rotate-45 bottom-[-7.5px] left-[6rem] bg-gray-900  "></div>
+                </div>
+                <div  class=" lg:hidden sm:flex justify-evenly anim  sm:w-full  sm:h-12  sm:fixed sm:bottom-0 sm:left-0  sm:bg-gray-200 sm:text-black z-[12] px-3 items-center " >   
+                    <div class="hover:cursor-pointer "  (click)="showNote()"><i  class="fa-solid fa-message   "></i> Make Note</div>
+                    <div  (click)="deleteSection()" class=" sm:hidden hover:cursor-pointer  border-l border-solid border-l-gray-600 pl-2 "><i class="fa-solid fa-trash"></i> Delete</div>
+                    <div (click)="showlink()" class=" hover:cursor-pointer border-l border-solid border-l-gray-600 pl-2 "><i class="fa-solid fa-link mr-1 "></i>Add Link</div>
+            </div>
+                
+                <div *ngIf="links.length" class="links lg:ml-[15rem] sm:ml-4 mt-8 flex flex-col border-t border-gray-400 border-solid pt-4  ">
+                    <div  class=" text-xl font-medium "><i class="fa-solid fa-link"></i> Links or resources :</div>
+                   <div *ngFor="let link of links" class="link">
+                     <a class=" text-blue-700 underline text-xl font-medium " target="_blank" [href]="link.href">{{link.title}}</a>
+                     <i (click)="deleteLink(link._id)" *ngIf="link.sender===user._id" class="fa-solid fa-xmark float-right text-lg hover:text-gray-500 hover:cursor-pointer "></i>
+                   </div>
+                </div>
+            </div>
+            <div class=" sticky sm:pb-16 lg:top-[20rem] bottom-0 right lg:w-[35%] sm:w-full flex flex-col items-center     ">
+                <div *ngIf="show" class="note w-[90%] rounded-sm shadow-md  ">
+                            <div class="title flex justify-between items-center h-[3rem] p-2 text-lg  bg-[#efe3c9] ">
+                                <p>Private Note</p>
+                            
+                            </div>
+                            <div class=" p-2 ">
+                                <div class="content flex items-center h-[2rem] w-full  gap-4" >
+                                    <img [src]="'../../../assets/images/'+ user.image" alt="" class=" w-[30px] ">
+                                    <div>{{user.name}}</div>
+                                </div>
+                                    <p>{{Note}}</p>
+                                 <div class="input">
+                                    <input [(ngModel)]="comment" type="text" placeholder="take a note..."  class=" text-lg w-full border-none outline-none mb-4 mt-4 pl-3 ">
+                                    <div class="w-full flex items-center justify-start gap-4 ">
+                                        <button  (click)="saveNote()" class="bg-amber-100 px-8 flex justify-center text-yellow-700  h-[1.8rem] leading-4 items-center rounded-[7px] hover:cursor-pointer "> Send</button>
+                                        <button  (click)="show=false"   class="bg-red-100 px-8 flex justify-center text-red-700  h-[1.8rem] leading-4 items-center rounded-[7px] hover:cursor-pointer ">Cancel</button>
+                                    </div>
+                                   
+                                </div>
+                            </div> 
+                           
+                           
+                </div>
+
+                <div *ngIf="showLink" class=" w-[90%] my-4 bg-[#291c30] text-white flex flex-col p-2 rounded-md gap-2 ">
+                    <div class="pr-2 pt-2 "><i (click)="showLink=false" class="fa-solid fa-xmark float-right hover:text-gray-300 hover:cursor-pointer "></i></div>
+                    <div class=" text-gray-400 ml-2 ">your link title :</div>
+                    <input type="text" placeholder="Make a title for your link..." [(ngModel)]="Note" name="" id="" class=" text-white px-2 bg-transparent border-gray-500 border-solid border h-8 rounded-md outline-none  ">
+                    <div class=" text-gray-400 ml-2 ">copy your link :</div>
+                    <input type="text"[(ngModel)]="href" placeholder="Copy yout link..." class=" text-white px-2 bg-transparent border-gray-500 border-solid border h-8 rounded-md outline-none ">
+                    <button (click)="saveLink()"  class=" bg-gray-400 rounded-sm p-2 text-black text-lg font-medium ">Add link</button>
+                </div>
+
+
+                <div class="  w-[90%] gap-4 pt-[5rem] flex justify-center flex-col  ">
+                     <mat-expansion-panel *ngFor="let note of notes" (opened)="panelOpenState = true"
+                                                (closed)="panelOpenState = false" class=" w-full bg-[#efe3c9] text-[#] ">
+                                    <mat-expansion-panel-header >
+                                        <mat-panel-title>
+                                            <p>Private Note</p>
+                                        </mat-panel-title>
+                                    
+                                    </mat-expansion-panel-header>
+                                    <div class=" flex flex-col gap-4">
+
+                                        <div class="content flex items-center h-[2rem] w-full  gap-4" >
+                                
+                                            <div class="flex gap-2 items-center justify-start  font-medium"><img [src]="'../../../assets/images/'+ note.senderIcon" alt="" class=" w-[30px] ">{{note.senderName}} </div>
+                                            <div>{{note.comment}}</div>
+                                        </div>
+                                             <p class="p-2 rounded-md"><span class="font-medium ">Text selected :</span> {{note.title}}</p> 
+                                    </div>
+                                    <button (click)="deleteNote(note._id)" *ngIf="note.sender===user._id" class=" bg-[#291c30] text-white rounded-lg font-medium p-2 float-right   ">Delete note</button>
+                            </mat-expansion-panel>
+                </div>
+            </div>   
+        </div>
+
+    </mat-drawer-content>
+  </mat-drawer-container>

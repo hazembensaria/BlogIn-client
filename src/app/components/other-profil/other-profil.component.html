@@ -1,0 +1,165 @@
+
+<div class="father flex w-full relative sm:flex-col-reverse ">
+    <div *ngIf="showFoloowersOrFollowings" class=" p-8 flex overflow-y-scroll   flex-col w-full h-full fixed top-0  left-0 bg-[rgba(255,255,255,0.8)] backdrop-blur-md  z-[99999999]   ">
+        <div class=" flex w-full items-center justify-end lg:pr-[8rem] pt-[5rem] "><i (click)="showFoloowersOrFollowings=false" class="fa-solid fa-xmark text-2xl text-gray-300 hover:cursor-pointer hover:text-gray-400  "></i></div>
+        <div class=" w-full flex flex-col gap-4 justify-center items-center mt-[5rem] ">
+            <div class="follower  lg:w-[40%] sm:w-full flex justify-between items-center gap-2 " *ngFor="let following of followersOrFollowings " >
+                <div class="flex w-[70%] justify-start  gap-4 ">
+                    <img [src]="'../../../assets/images/'+following.image"  class=" w-[30px] h-[30px] " alt="">
+                    <div class="flex flex-col items-start justify-start ">
+                       <div (click)="visitProfil(following._id)" class=" font-medium hover:cursor-pointer ">{{following.name}}</div>
+                        <div class="text-gray-500 font-light text-sm sm:hidden ">{{following.bio}}</div> 
+                    </div>
+                </div>
+               
+            <button  *ngIf="!following.followers.includes(currentUser._id)"  (click)="followother(following._id , following.followers)"  class="bg-[#03a811] p-4 flex justify-center text-white h-[2rem]  items-center rounded-[20px] hover:cursor-pointer hover:bg-[#03960f] ">Follow</button>
+            <div *ngIf="following.followers.includes(currentUser._id)"    class=" border border-solid border-gray-400 p-4 flex justify-center  h-[2rem]  items-center rounded-[20px]  ">Following</div>
+   
+            </div>
+        </div>
+      
+    </div>
+    <div [ngClass]="{'upLeft': moveToUp==='down','init':moveToUp==='up' ||moveToUp==='init'  }" class="left left lg:w-[75%] sm:w-full lg:pl-[10rem]  ">
+        <div class=" sticky top-[8vh]  bg-white w-full  py-8 ">
+            <p class=" famile text-6xl font-medium text-gray-500 sm:hidden ">You are in <span  *ngIf="currentUser._id!==user._id" class=" text-black">{{user.name}}</span> <span  *ngIf="currentUser._id===user._id" class=" text-black">your</span> profile</p>
+            <div class="topToppics trans justify-start w-full flex gap-2 flex-wrap p-4 " *ngIf="searchedTags.length" >
+                <p class=" w-full  m-0 text-gray-400 ">This articles are talking about :</p>
+            <div  class="topic  pl-4 pr-2 rounded-[20px] pt-2 pb-2 bg-gray-200 flex gap-2 justify-between trans" *ngFor="let tag of searchedTags">{{tag}}
+    
+                <div (click)="deleteTag(tag)" class=" w-[20px] h-[20px] rounded-[50%] bg-gray-500 top-0 flex justify-center items-center text-white hover:cursor-pointer "><i class="fa-solid fa-xmark"></i></div>
+                
+            </div>
+            <div (click)="deleteAllTags()" class="topic text-red-800  pl-4 pr-2 rounded-[20px] pt-2 pb-2 bg-red-200 flex gap-2 justify-between ">
+                    Delete All
+                <div  class=" w-[20px] h-[20px] rounded-[50%] bg-red-500 top-0 flex justify-center items-center text-white hover:cursor-pointer "><i class="fa-solid fa-xmark"></i></div>
+            </div>
+            </div>
+        </div>
+       
+        <div class="finishArticles lg:w-[80%]  sm:w-full sm:px-4 ">
+            <article *ngFor="let article of articles" class="  w-full flex flex-col  border-b-[1px] border-solid border-b-gray-300 lg:p-[2rem] lg:mt-[3rem] sm:mt-4 sm:pb-4   ">
+                <div (click)="readArticle(article._id)" class="top flex w-full justify-between relative  items-center mb-3  ">
+                   
+                    <div class="flex w-[70%] relative justify-start items-center gap-4 ">
+                            <img class=" w-[30px] bg-amber-50 " [src]="'../../../assets/images/'+ article.autherIcone" [alt]="article.autherIcone">
+                            <div  class="flex flex-col  h-full justify-start ">
+                                <div class=" lg:text-lg font-medium  ">{{article.autherName}}</div>
+                                <div class=" text-xs text-gray-400 "><span  *ngIf="article.collaborators.length">With {{article.collaborators.length}} others</span><span  *ngIf="!article.collaborators.length">solo</span></div>
+                            </div>
+                            <p class=" text-gray-600 font-light sm:hidden " >{{article.date | date}}</p>
+                            <p *ngIf="article.collaborators.includes(user._id)" class=" lg:hidden text-xs  ">Collab</p>
+                            <div class=" myDIV1 relative" *ngIf="article.attachedUsers.includes(user._id)" >
+                                <div   class=" scale-0 w-[12rem] translate-x-[-50%] font-light text-gray-500 text-xs float-right justify-center items-center hover:cursor-default bg-white parentHide1 border border-solid shadow-sm border-[rgb(211,211,211)]  rounded-[5px] ">
+                                    <span class="mr-[3px]" *ngIf="user._id!==currentUser._id" >{{user.name}} </span> <span class=" mr-[3px]" *ngIf="user._id===currentUser._id">You </span>attached {{article.autherName}}'s article
+                                    <div class="corner1 bg-white "></div>
+                                </div>
+                                <i class="fa-solid fa-paperclip lg:text-xl text-gray-600 "></i>
+                            </div>
+                      
+                    </div>
+                      
+                     <p  class=" myDIV text-gray-500 rating relative hover:cursor-default sm:text-xs " *ngIf="article.avg>=1">Rated {{article.avg}} <i class="fa-solid fa-star"></i></p>
+                     <div   class=" scale-0 font-light text-gray-500 text-xs float-right justify-center items-center hover:cursor-default bg-white parentHide border border-solid shadow-sm border-[rgb(211,211,211)]  rounded-[3px] ">
+                            
+                        {{article.rating.length}} Rated this
+                    
+                   
+                      <div class="corner bg-white "></div>
+                  </div>
+                </div>
+                <div (click)="readArticle(article._id)" class="mid w-full hover:cursor-pointer ">
+                    <p class=" lg:text-3xl sm:text-lg font-semibold " >{{article.title}}</p>
+                    <p class="text-[rgba(41,41,41,1)] leading[24px] text-[17px] ellipsis famile sm:hidden ">{{article.sections[0]}}</p>
+                    <div class="  flex justify-end gap-8 pr-4 items-center ">
+                        <!-- <img src="../../../assets/images/points.png" class=" w-[25px] hover:cursor-pointer " alt=""> -->
+                       
+                        
+                    </div>
+                </div>
+                <div class="bot flex items-center justify-between sm:flex-col ">
+                    <div class="tags flex gap-2 sm:w-full sm:mb-2 flex-wrap ">
+                        <div (click)="searchByTagInOtherProfile(tag.name)" class="tag lg:px-4 sm:px-2 sm:text-xs rounded-[15px]  bg-gray-100 lg:h-8 sm:h-7 flex justify-center items-center hover:cursor-pointer hover:bg-gray-200 " *ngFor="let tag of article.tags" >
+                            {{tag.name}}
+                        </div>
+                    </div>
+                    <div class=" flex items-center justify-center gap-4 sm:w-full sm:justify-end sm:gap-8 "> 
+                        <div class=" text-gray-600 font-light lg:hidden sm:text-xs" >{{article.date | date}}</div>
+                        <div *ngIf="article.likes.includes(currentUser._id)" >
+                            {{article.likes.length}} <i (click)="likePost(article._id,article.likes.includes(currentUser._id) ,  articles.indexOf(article) ,article.auther , article.collaborators)" class="fa-solid fa-heart text-red-500 "></i>
+                        </div>
+                        <div *ngIf="!article.likes.includes(currentUser._id)">
+                            {{article.likes.length}} <i  (click)="likePost(article._id,article.likes.includes(currentUser._id) , articles.indexOf(article),article.auther , article.collaborators)" class="fa-regular fa-heart"></i>
+                        </div>
+                        <i *ngIf="!currentUser?.readLater.includes(article?._id)" (click)="readLaterArticle(article._id)" class="fa-regular fa-bookmark text-amber-400 hover:cursor-pointer "></i>
+                        <i *ngIf="currentUser?.readLater.includes(article?._id)"(click)="readLaterArticle(article._id)" class="fa-solid fa-bookmark text-green-600 hover:cursor-pointer "></i>
+                        <button [matMenuTriggerFor]="afterMenu">        
+                            <i class="fa-solid fa-ellipsis"></i>
+                           
+                        </button>
+                        <mat-menu #afterMenu="matMenu" xPosition="after">
+                            <button class=" flex items-center justify-center text-[#333] " (click)="openDialog(article._id , article.title , article.shares.includes(user._id), article.auther , article.collaborators)" mat-menu-item ><i class="fa-solid fa-share mr-2"></i><span>Share Article</span></button>
+                            <button class=" flex items-center justify-center text-[#333] " (click)="attachUser(article._id,article.attachedUsers ,articles.indexOf(article) )"  mat-menu-item><span *ngIf="!article.attachedUsers.includes(currentUser._id)"><i class="fa-solid fa-link mr-2"></i>Attach to my profil</span>
+                                <span *ngIf="article.attachedUsers.includes(currentUser._id)"><i class="fa-solid fa-link-slash mr-2"></i>Remove attachement </span></button>
+                            <button class=" flex items-center justify-center text-[#333] " (click)="report(article._id , article.title)" mat-menu-item><i class="fa-solid fa-triangle-exclamation mr-2"></i>Report Article</button>
+
+                        </mat-menu>
+                    </div>
+                   
+                   
+                </div>
+            </article>
+        </div>
+    </div>
+    <div [ngClass]="{'up': moveToUp==='down','init':moveToUp==='up' ||moveToUp==='init'  }" class="right sm:rounded-b-[40px]  sticky top-[8vh] lg:h-[92vh] lg:w-[25%] sm:w-full sm:bg-gray-50 sm:shadow-md lg:border-l-2 lg:border-solid lg:border-l-gray-300  ">
+        <form (submit)="onSubmit(myForm)" #myForm="ngForm" class="search relative w-[85%] lg:mt-8 sm:mt-3 m-auto ">
+            <div class=" sm:rounded-[35px] sm:bg-white ">
+              <input autocomplete="off"  name="people" [(ngModel)]="itemToSearch" required #people="ngModel" type="text" [placeholder]="'Search in '+ user.name+' profile . . . '" required >
+            </div>
+            <div *ngIf="submitSearch" class="sezrchResult w-full h-[20rem] top-[2.5rem] bg-white shadow-md z-[9999] absolute p-4 ">
+                
+             
+                <p class="   text-gray-500 ">Articles in {{user.name}} profile </p>
+                <hr class="mb-2">
+                <div class="articleSearched flex flex-col gap-2 w-full  ">
+                    <div (click)="readArticle(article._id)" *ngFor="let article of articleSearched" class="userSearched flex items-center gap-2  hover:bg-gray-50 hover:cursor-pointer rounded-md p-1 ">
+                        <img [src]="'../../../../../assets/images/'+article.autherIcone" class=" w-[30px] " alt="">
+                        <div>{{article.title}}</div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="description lg:mt-[5rem] flex  flex-col  w-full gap-2 p-4 ">
+            <div class=" w-full flex justify-start gap-4 items-center ">
+                <img  [src]="'../../../assets/images/'+user.image" class=" lg:w-[80px] lg:h-[80px] sm:w-[60px] sm:h-[60px] " alt="">
+                <div >
+                    <p class=" lg:text-lg font-medium  ">{{user.name}}</p>
+                    <p class=" lg:text-lg font-medium text-gray-500 ">{{user.profession}}</p>
+                   
+                </div>
+            </div>
+           
+            <div class="  text-gray-400 sm:text-xs ">{{user.bio}}</div>
+            <div class=" w-full flex  items-center justify-start lg:gap-16 sm:gap-8  ">
+                <p (click)="getFollowers()"  *ngIf=" user.followers.length>0" class=" text-lg font-[400] hover:cursor-pointer text-gray-600    hover:text-black">{{user.followers.length}} Followers</p>
+                <p (click)="getFollowings()"  *ngIf=" user.followings.length>0"  class="text-lg font-[400] hover:cursor-pointer text-gray-600  hover:text-black ">{{user.followings.length}} Following </p>
+            </div>
+          
+        </div>
+        <div  *ngIf="user._id!==currentUser._id" class="w-full lg:p-4 sm:px-4 ">
+            <button [ngClass]="{'scale-0': moveToUp==='down','scale-100':moveToUp==='up' ||moveToUp==='init'  }" *ngIf="!user.followers.includes(currentUser._id)"  (click)="followUser()"  class="bg-[#03a811] px-4 flex justify-center text-white  lg:text-lg  lg:h-[2.2rem] sm:h-[1.7rem]  items-center lg:rounded-[8px] sm:rounded-[4px] hover:cursor-pointer ">Follow</button>
+            <button [ngClass]="{'scale-0': moveToUp==='down','scale-100':moveToUp==='up' ||moveToUp==='init'  }"*ngIf="user.followers.includes(currentUser._id)" (click)="unfollowUser()"  class="bg-white px-4 flex justify-center text-black border border-solid border-gray-700 lg:text-lg   lg:h-[2.2rem] sm:h-[1.7rem] items-center rounded-[8px] hover:cursor-pointer hover:border-none hover:bg-red-100 hover:text-red-600  ">Unfollow</button>
+
+        </div>
+        <button (click)="stat()" [ngClass]="{'scale-0': moveToUp==='down','scale-100':moveToUp==='up' ||moveToUp==='init'  }"*ngIf="user._id===currentUser._id" class="px-4 flex justify-center items-center text-blue-600  lg:text-lg  sm:mx-4  ">Check stats <i class="fa-solid fa-arrow-trend-up ml-[4px] text-green-600 "></i></button>
+        <div class=" w-full flex items-center justify-end h-12 gap-[10%]  ">
+            <div class="flex gap-4 items-center justify-center my-4 " [ngClass]="{'down': moveToUp==='down','downImg':moveToUp==='up' ,'downInit':moveToUp==='init'  }">
+                <img  [src]="'../../../assets/images/'+user.image" class=" sm:w-[35px] sm:h-[35px] " alt="">
+            <div  class=" lg:text-lg font-medium  ">{{user.name}}</div>
+
+            </div>
+            <button (click)="moveDiveRight()" class=" lg:hidden float-right  mr-8 "><span  *ngIf="moveToUp==='init' ||moveToUp==='up'" ><i class="fa-solid fa-arrow-up bouns"></i></span><span  *ngIf="moveToUp==='down'" ><i class="fa-solid fa-arrow-down"></i></span></button>
+
+        </div>
+    </div>
+</div>

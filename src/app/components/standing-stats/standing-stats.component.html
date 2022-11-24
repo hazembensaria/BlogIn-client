@@ -1,0 +1,60 @@
+<div class="father w-full ">
+<div class=" lg:w-[65%] lg:m-auto sm:w-full sm:pl-4 lg:text-5xl sm:text-4xl font-medium flex justify-start items-end gap-2 lg:my-[3rem] sm:my-8 ">
+    <i class="fa-solid fa-award text-2xl"></i> <div> Claimed Points</div>
+</div>
+
+<div class=" w-[90%] h-[30rem] m-auto p-8 rounded-lg bg-gray-800 flex items-center justify-start gap-8">
+    <div class="stats w-[65%] h-full flex gap-4 ">
+        <div class="first w-[35%] flex flex-col justify-between">
+            <div tt="this point are views pionts. Every view will give you 1 point" class="top desc h-[48%] w-full bg-[#f6f6bd] text-[#100e1f] text-5xl font-medium rounded-lg flex flex-col justify-end gap-8 items-center ">
+            <div> {{ranking.views}} </div>
+                <div class=" text-lg  ">Views points</div>
+            </div>
+            <div tt="this point are shares pionts. Every share will give you 10 points" class="bot desc h-[48%] bg-[#d0e6ea] text-5xl font-medium w-full text-[#100e1f] flex flex-col justify-end gap-8 items-center  rounded-lg">
+                <div>{{ranking.shares}}</div>
+                <div class=" text-lg  ">Shares points</div>
+
+            </div>
+        </div>
+        <div tt="your acctual rank " class="desc  mid font-medium   bg-[#f4ba60] text-gray-800  w-[30%] items-center justify-center flex rounded-lg flex-col ">
+        <div class="text-5xl  "> {{standing}}</div>
+        <div class="text-lg"> Your acctual rank</div>
+        </div>
+        <div class="last flex flex-col justify-between w-[35%]">
+            <div tt="this points are likes pionts. Every like will give you 5 points" class="top desc h-[48%] bg-[#e7e3e2] w-full text-[#100e1f] text-5xl font-medium  rounded-lg flex flex-col justify-end gap-8 items-center ">
+            <div>  {{ranking.likes}}</div>
+                <div class=" text-lg  ">Likes points</div>
+            </div>
+            <div tt="this points are your total points. your rank is calculated over this points. " class="bot desc h-[48%] w-full bg-[#afd1c1] rounded-lg flex flex-col text-5xl font-medium  justify-end gap-8 items-center ">
+                <div>{{ranking.tot}}</div>
+                <div class=" text-lg ">Total points</div>
+
+            </div>
+        </div>
+    </div>
+    <div class=" w-[35%] h-full rounded-md  ">
+        <div  class="w-full flex items-center justify-center h-full text-white">
+            <canvas id="chart" class="text-white "></canvas>
+          </div>
+    </div>
+</div>
+<div class="caption lg:w-[65%] m-auto sm:w-full flex justify-between pb-2 mt-[5rem] text-lg font-medium text-gray-500 border-b border-solid border-b-gray-200 mb-2">
+    <div><i class="fa-solid fa-arrow-up-short-wide"></i> Standing</div>
+    <div class="w-[50%]"> user info</div>
+    <div>total Points</div>
+</div>
+<div class="flex pb-4 flex-col gap-4 m-auto w-[65%]  " >
+    <div *ngFor="let usr of ordredUsers " >
+        <div class="flex  items-center justify-between px-2 " [ngClass]="{'bg-slate-100 rounded-md':usr._id===user._id}" >
+            <div class=" text-lg font-medium text-gray-700 ">{{ordredUsers.indexOf(usr)+1}}</div>
+            <div class="flex gap-2 w-[50%] items-center">
+                <img [src]="'../../../assets/images/'+usr.image" alt="" class="w-[30px] h-[30px]">
+            
+            <div>{{usr.name}}</div>
+            </div>
+            <div>{{usr.totalPoints}}</div>
+        </div>
+       
+    </div>
+</div>
+</div>

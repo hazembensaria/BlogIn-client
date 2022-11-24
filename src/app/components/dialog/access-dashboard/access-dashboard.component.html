@@ -1,0 +1,16 @@
+<div class="father lg:w-[40rem] sm:w-[16rem] ">
+    <div class=" flex justify-between items-center ">
+        <div class=" text-lg font-medium ">
+            Share this post</div>
+            <button class=" border-none outline-hidden " [mat-dialog-close]><i class="fa-solid fa-xmark text-lg "></i></button>
+    </div>
+    
+        <form  #myForm="ngForm" class="search relative lg:w-[85%] sm:w-full lg:mt-8 sm:my-4 ">
+            
+            <div>
+              <input autocomplete="off" type="password" placeholder="your password" name="password" ngModel required #password="ngModel" >
+            </div>
+        </form>
+        <button (click)="onSubmit(myForm)" [mat-dialog-close]  class="bg-[#03a811] px-4 flex justify-center text-white  h-[1.8rem] leading-4 items-center rounded-[20px] hover:cursor-pointer ">Valide Password</button>
+
+</div>

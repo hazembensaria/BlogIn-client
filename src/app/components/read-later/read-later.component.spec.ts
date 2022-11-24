@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ReadLaterComponent } from './read-later.component';
+
+describe('ReadLaterComponent', () => {
+  let component: ReadLaterComponent;
+  let fixture: ComponentFixture<ReadLaterComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ ReadLaterComponent ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(ReadLaterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

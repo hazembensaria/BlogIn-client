@@ -1,0 +1,89 @@
+.fami{
+    font-family: 'Playfair Display', serif;
+}
+
+.br{
+   
+    border-left: 2px rgb(251 191 36) solid;
+}
+textarea::-webkit-scrollbar {
+  display: none;
+}
+.followers::-webkit-scrollbar{
+  width: 7px;
+}
+.followers::-webkit-scrollbar-track {
+  background-color: rgb(237, 237, 237);
+  border-radius: 10px;
+}
+.followers::-webkit-scrollbar-thumb{
+  background: #ccc;
+  border-radius: 10px;
+}
+.top{
+    top: 10rem;
+}
+.anim{
+    transition: all .2s ease-in-out;
+}
+  /*for the search ber*/
+
+  .flexbox {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0;
+    border-radius: 10px;
+  
+  }
+ 
+  
+  .search > div > input {
+    color: black;
+    font-size: 16px;
+    background: transparent;
+    width: 100%;
+    height: 35px;
+    padding: 10px;
+    border: solid 1px darkgray;
+    outline: none;
+    border-radius: 35px;
+    transition: width 0.5s;
+  
+  }
+  .search > div > input:hover{
+    cursor:text;
+  }
+  /*end of css of search bar*/
+  [contenteditable][placeholder]:empty:before {
+    content: attr(placeholder);
+    position: absolute;
+    color: gray;
+    background-color: transparent;
+  }
+  [contenteditable]:empty:hover{
+    cursor: text;
+  }
+
+  .avatar::before,
+  .avatar::after:hover{
+    content: 'hazem ben saeri';
+    position: absolute;
+    top: -.25rem;
+    height: 50px;
+    width: 50px;
+    background: #000;
+    color: wheat;
+    left: 50%;
+    /* transform: translateX(-50%) translateY(-100%); */
+  }
+  .avatar::before{
+    content: 'hazem ben saria';
+    color: wheat;
+    height: 50px;
+    width: 50px;
+    background: #000;
+  }
+ 

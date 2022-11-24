@@ -1,0 +1,16 @@
+
+
+<div class="father w-full bg-[#fafafa]">
+    <!-- <div class=" w-full flex justify-end pt-12 lg:pr-[15%] sm:px-4 ">
+        <div  class=" lg:w-[50%] sm:w-full  ">
+            <canvas id="chart"></canvas>
+          </div>
+    </div> -->
+    <div class=" ml-[17.5%] pt-16 caption lg:w-[15%] sm:w-[90%] sm:ml-4 flex justify-start gap-4 border-b-2 border-solid mb-12 border-b-gray-200">
+        <div routerLink="/stats" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="  flex  justify-center items-center font-medium text-gray-200  p-2 hover:cursor-pointer  ">Articles Stats</div>
+        <div routerLink="/stats/standing" routerLinkActive="active"  class=" flex  justify-center items-center  font-medium text-gray-200 p-2 hover:cursor-pointer  ">Standing Stats</div>
+       
+    </div>
+   
+<router-outlet class=""></router-outlet>
+</div>

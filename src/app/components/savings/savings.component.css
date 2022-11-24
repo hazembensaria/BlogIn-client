@@ -1,0 +1,22 @@
+.ellipsis {
+   
+    overflow: hidden;
+    text-overflow: ellipsis;
+  
+
+   height: 5rem;
+}
+.fami{
+    font-family: 'Playfair Display', serif;
+}
+.active{
+    border-bottom: 3px rgb(255, 208, 0) solid;
+    color: rgb(43, 32, 32);
+    font-weight: 500;
+    /* border-radius: 8px; */
+    /* background: rgb(145, 145, 145); */
+    /* color:wheat; */
+}
+*::-webkit-scrollbar {
+    display: none;
+  }

@@ -1,0 +1,157 @@
+
+<div class="father bg-[#f8f8f8] w-full">
+
+    <div mat-raised-button (click)="openBottomSheet()" class=" bg-[#f8f8f8] rounded-r-[25px] hover:cursor-pointer  border-none outline-none shadow-[2px_2px_8px_rgba(0,0,0,0.5)] login w-[12rem]  h-[3rem] fixed top-[80%] flex gap-[.2rem] tre1 z-[99999] "[ngClass]="{'tre':scroll}">
+        <div class="bg-amber-400 w-[70%] h-full flex justify-center items-center text-2xl font-medium text-amber-600 " >
+            Login
+        </div>
+        <div class="bg-amber-400 w-[30%] h-full rounded-r-[25px] flex justify-center items-center  ">
+            <img [ngClass]="{'hidden':!scroll}" class=" w-[35px] " src="../../../assets/images/padlock.png" alt="">
+        </div>
+        </div>
+   <div class="first bg-[#f8f8f8] w-full flex justify-between pl-[8rem] items-center h-[100vh] pb-[8rem] ">
+    
+<div class=" self-start text-5xl font-medium mt-[5rem] " ><span class="text-9xl text-[#164372] ">zone </span> <br>
+    <div >
+        <div  [ngClass]="{'typing-demo':!scroll}">
+            {{caption}}
+        </div>
+    </div>
+    <hr class="mt-[2rem] ">
+    <div class="fields flex w-[23rem] gap-[1rem] flex-wrap text-2xl mt-16 ">
+        <div *ngFor="let field of fields" class="field border-gray-700 border-solid border-[1px] pl-[.5rem] pr-[.5rem] rounded-md hover:bg-[#164372] hover:border-[#164372] hover:text-white hover:cursor-pointer">
+           <a href="#th">{{field}}</a> 
+        </div>
+        
+    </div>
+ </div>
+<img src="../../../assets/images/blog.png" alt="">
+
+</div> 
+
+<div id="th" class="third w-full min-h-[100vh]  bg-amber-200 flex pt-[5rem] justify-between pr-[3rem] ">
+    <div class="trind w-[30%] pl-[1rem] ">
+        <p class=" text-7xl ">Top Trinding</p>
+        <p class="text-lg  ">Lorem, ipsum dolor sit amet consectetur <br>adipisicing elit. Cum ducimus</p>
+    </div>
+    <div class="articls w-[55%] flex flex-col ">
+        <article class=" w-full flex  border-b border-solid border-b-black h-[10rem]  ">
+            <div class="left w-[25%]">
+                <p class="text-lg font-medium">800 likes</p>
+                 <p>02 dec 2021</p>   
+            </div>
+            <div class="right">
+                <p class=" text-3xl font-medium " >this is about my last month in gym</p>
+                <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et dolor debitis, optio iure unde quos nostrum consequuntur vero ad! 
+                    Nesciunt laudantium vitae ex voluptatum sunt molestias dolorem eius corrupti doloremque! ...</p>
+            </div>
+        </article>
+        <article class=" w-full flex  border-b border-solid border-b-black h-[10rem]  ">
+            <div class="left w-[25%]">
+                <p class="text-lg font-medium">800 likes</p>
+                 <p>02 dec 2021</p>   
+            </div>
+            <div class="right">
+                <p class=" text-3xl font-medium " >this is about my last month in gym</p>
+                <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et dolor debitis, optio iure unde quos nostrum consequuntur vero ad! 
+                    Nesciunt laudantium vitae ex voluptatum sunt molestias dolorem eius corrupti doloremque! ...</p>
+            </div>
+        </article>
+        <article class=" w-full flex  border-b border-solid border-b-black h-[10rem]  ">
+            <div class="left w-[25%]">
+                <p class="text-lg font-medium">800 likes</p>
+                 <p>02 dec 2021</p>   
+            </div>
+            <div class="right">
+                <p class=" text-3xl font-medium " >this is about my last month in gym</p>
+                <p class="">Lorem ipsum dolor sit amet consectetur adipisicing elit. Et dolor debitis, optio iure unde quos nostrum consequuntur vero ad! 
+                    Nesciunt laudantium vitae ex voluptatum sunt molestias dolorem eius corrupti doloremque! ...</p>
+            </div>
+        </article>
+       
+        
+    </div>
+    
+    
+</div>
+<div class="fourth w-[90%] h-[20rem] bg-[#0e2a47] m-auto mb-4 mt-4 rounded-xl flex text-white ">
+<div class="left w-[50%] h-full pl-[1rem] pt-[3rem] ">
+    <p class=" text-4xl font-medium   ">Become a contributor and earn money with your creations</p>
+    <p class=" text-xl ">Over 5 hundred designers around the world already trust us</p>
+    <button class=" w-[15rem] h-[3rem] flex justify-center items-center bg-amber-400 text-white text-2xl font-medium mt-[2rem] ml-[5rem] rounded-md "> Connect Now </button>
+</div>
+<div class="right w-[50%] h-full pt-[3rem] flex gap-4 mr-[1rem] ">
+    <div class="left1 w-[50%] h-[100%] gap-[1rem] flex flex-col justify-center items-center ">
+        <div class="top h-[30%] w-full bg-[#164372] rounded-xl "></div>
+        <div class="bot h-[70%] w-full bg-[#164372] rounded-tl-xl rounded-tr-xl"></div>
+    </div>
+    <div class="right1 w-[50%] h-full flex justify-center items-center flex-col gap-4  ">
+        <div class="top w-full h-[55%] bg-[#164372] rounded-xl"></div>
+        <div class="bot w-full h-[45%] bg-[#164372] rounded-tl-xl rounded-tr-xl"></div>
+    </div>
+</div>
+</div>
+<div class="second w-full h-[100vh] flex justify-start flex-col items-center gap-4 pt-[2rem] bg-[#f8f8f8] ">
+
+  <header class="title flex justify-center items-center flex-col  font-medium">
+    <img class=" w-[50px] " src="../../../assets/images/question (1).png" alt="">
+     <p class=" font-bold text-2xl">   Frequently Asked Questions</p>
+     <p class=" text-gray-500 font-light">please connect to give us your feed back or your question to improve</p>
+     <p  class=" text-gray-00 font-light "> your experience here .</p>
+  </header>
+<mat-expansion-panel (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false" class=" w-[50%] z-0 ">
+  <mat-expansion-panel-header >
+    <mat-panel-title>
+      Self aware panel
+    </mat-panel-title>
+    <mat-panel-description>
+      Currently I am {{panelOpenState ? 'open' : 'closed'}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <p>I'm visible because I am open skdc dscc Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas sequi, laudantium numquam minima sapiente suscipit accusamus delectus inventore odit impedit ducimus odio illo consectetur natus blanditiis totam ipsa dolores. Nihil.</p>
+</mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false" class=" w-[50%] ">
+  <mat-expansion-panel-header >
+    <mat-panel-title>
+      Self aware panel
+    </mat-panel-title>
+    <mat-panel-description>
+      Currently I am {{panelOpenState ? 'open' : 'closed'}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <p>I'm visible because I am open Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos quisquam nulla ab ut laboriosam blanditiis vero, maxime distinctio quo est ex esse quos quae magni dolore in sint iste beatae?  </p>
+</mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false" class=" w-[50%] ">
+  <mat-expansion-panel-header >
+    <mat-panel-title>
+      Self aware panel
+    </mat-panel-title>
+    <mat-panel-description>
+      Currently I am {{panelOpenState ? 'open' : 'closed'}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <p>I'm visible because I am open</p>
+</mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState = true"
+                     (closed)="panelOpenState = false" class=" w-[50%] ">
+  <mat-expansion-panel-header >
+    <mat-panel-title>
+      Self aware panel
+    </mat-panel-title>
+    <mat-panel-description>
+      Currently I am {{panelOpenState ? 'open' : 'closed'}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <p>I'm visible because I am open Lorem ipsum dolor sit amet consectetur, adipisicing elit. Qui sapiente ab quisquam ex sed nihil, sunt vero cum quod quas magnam exercitationem. Commodi error deserunt omnis nihil, maxime eligendi facilis.</p>
+</mat-expansion-panel>
+
+
+
+</div>
+
+<app-footer></app-footer>
+</div>
+

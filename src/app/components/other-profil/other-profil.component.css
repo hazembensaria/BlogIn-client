@@ -1,0 +1,143 @@
+.famile{
+    font-family: 'Playfair Display', serif;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+  /*for the search ber*/  
+  .search > div > input {
+    color: black;
+    font-size: 16px;
+    background: transparent;
+    width: 100%;
+    height: 35px;
+    padding: 10px;
+    border: solid 1px darkgray;
+    outline: none;
+    border-radius: 35px;
+    transition: width 0.5s;
+  
+  }
+  .search > div > input:hover{
+    cursor:text;
+  }
+  /*end of css of search bar*/
+.trans{
+    transition: all ease-in-out 2s ;
+}
+
+.parentHide , .parentHide1 {
+  display: none;
+  
+}
+@keyframes tran {
+  10%{
+      transform: scale(0.2);
+  }  
+  50%{
+      transform: scale(1.07);  
+  }
+  70%{
+      transform: scale(1.04);  
+  }
+  100%{
+      transform: scale(1);  
+  }
+}
+.myDIV:hover + .parentHide {
+  height: 2rem;
+ padding: .2rem;
+  display: flex;
+  position: absolute;
+  background: #fff;
+  border: 1px lightgray solid;
+  top: -2.4rem;
+  right:0;
+  border-radius: 5px;
+  animation: tran .3s forwards  ;
+}
+
+.myDIV1:hover > .parentHide1 {
+  height: 2rem;
+ padding: .2rem;
+  display: flex;
+  position: absolute;
+  background: #fff;
+  border: 1px lightgray solid;
+  top: -2.4rem;
+  right:-5.8rem;
+  border-radius: 5px;
+  animation: tran .3s forwards  ;
+}
+.corner {
+  position: absolute;
+  background: #fff;
+  border-bottom: 1px lightgray solid;
+  border-right: 1px lightgray solid;
+  bottom: -5px;
+  left: 2rem;
+  width: 10px;
+  height: 10px;
+  rotate: 45deg;
+}
+.corner1{
+  position: absolute;
+  background: #fff;
+  border-bottom: 1px lightgray solid;
+  border-right: 1px lightgray solid;
+  bottom: -5px;
+  left: 45%;
+  width: 10px;
+  height: 10px;
+  rotate: 45deg; 
+}
+
+.up{
+  background-color: rgb(209, 111, 111);
+  transform: translateY(-80%);
+  transition: all .4s ease-in-out;
+}
+.downImg{
+  transform:  scale(0);
+  transition: all .6s ease-in-out;
+}
+.downInit{
+  transform:  scale(0);
+  /* transition: all .1s ease-in-out; */
+}
+.down{
+ font-size: large;
+  transform:  scale(1)  translateX(-10%);
+  transition: all .4s ease-in-out;
+}
+
+
+.init{
+  transform: translateY(0);
+  transition: all .4s ease-in-out;
+}
+
+.upLeft{
+
+  transform: translateY(-230px);
+  transition: all .4s ease-in-out;
+}
+.bouns{
+  animation: bouns .7s ease-in-out infinite;
+}
+@keyframes bouns {
+  0%{
+    transform: translateY(0px);
+  }
+ 
+ 
+  50%{
+    transform: translateY(-7px);
+  }
+ 
+  100%{
+    transform: translateY(0px);
+  }
+}
+

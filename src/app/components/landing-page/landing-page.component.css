@@ -1,0 +1,106 @@
+.first , .trind{
+    font-family: 'Playfair Display', serif;
+}
+
+
+.wrapper {
+    
+    /*This part is important for centering*/
+    display: grid;
+    place-items: center;
+  }
+  
+  .typing-demo {
+    width: 22.8ch;
+    height: 3.2rem;
+    animation: typing 3s steps(22), blink .5s step-end infinite alternate;
+    white-space : nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-family:  'Playfair Display', serif;
+    /* font-size: 2em; */
+  }
+  
+  @keyframes typing {
+    from {
+      width: 0
+    }
+  }
+      
+  @keyframes blink {
+    50% {
+      border-color: transparent
+    }
+  }
+
+  .tre{
+    /* display: none; */
+    transition: all .5s ease-in-out;
+    transform: translateX(-8.25rem);
+    
+  }
+.tre1{
+    transition: all .5s ease-in-out;
+}
+.mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+
+
+
+  /* -------------------------------- */
+  /* .hero{
+    display: flex;
+
+  }
+  .hero .static-txt{
+    color: white;
+    font-size: 60px;
+    font-weight: 400;
+  }
+  .hero .dynamic-txts{
+    margin-left: 15px;
+    height: 90px;
+    line-height: 90px;
+    overflow: hidden;
+
+  }
+  .dynamic-txts li{
+    list-style: none;
+    color: aquamarine;
+    font-size: 60px;
+    font-weight: 500;
+    position: relative;
+    top: 0;
+    animation: slide 12s steps(4) infinite;
+
+  }
+  @keyframes slide{
+    100%{
+      top: -360px;
+    }
+  }
+  .dynamic-txts li span{
+    position: relative;
+    margin: 5px 0;
+    line-height: 90px;
+  }
+  .dynamic-txts li span::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    /* background: rgb(255, 255, 255); */
+    /* border-left: 2px solid lightgreen;
+    animation: typing 3s steps(10) infinite;
+
+  }
+  @keyframes typing{
+    40% , 60%{
+      left: calc(100%+30px);
+    }
+    100%{
+      left: 0;
+    }
+  } */ 

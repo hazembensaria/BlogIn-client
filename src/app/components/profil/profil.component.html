@@ -1,0 +1,21 @@
+
+<!-- <img [src]="img" alt="" class="w-[100px]">
+{{user.token}}
+{{user.role}}
+{{user._id}}
+{{user.isnew}} -->
+<div class="father flex  ">
+    <div class="left w-[17%]   border-r-[1px] border-solid border-r-gray-300 flex justify-center items-start pt-[5rem]  ">
+        <div class="first w-[70%]  sticky  top-[10rem] left-4 ">
+            <div class="titel  text-xl text-gray-400 font-medium mb-4 ">
+                My Account
+            </div>
+            <div routerLink="/profil/settings" class="option m-[.5rem] flex justify-start pl-[10px] h-[1.5rem] rounded-sm  items-center font-medium hover:bg-gray-100 hover:cursor-pointer ">Edite Profil</div>
+            <div class="option m-[.5rem] flex justify-start pl-[10px] h-[1.5rem] rounded-sm  items-center font-medium hover:bg-gray-100 hover:cursor-pointer ">Security</div>
+        </div>
+       
+    </div>
+    <div class="right w-[83%] ">
+        <router-outlet></router-outlet>
+    </div>
+</div>

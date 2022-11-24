@@ -1,0 +1,79 @@
+<div class="father lg:pl-[10rem] w-full pb-8  min-h-[100vh] flex sm:flex sm:flex-col-reverse ">
+    <div class="left lg:w-[50%] sm:w-full flex justify-center items-start flex-col  pt-[2rem] lg:pl-[7rem] sm:pl-4 ">
+        <div class="title lg:mb-[3rem] sm:mb-4 " >
+            <p class=" text-2xl font-medium m-0 ">My Profil</p>
+            <p class="m-0 text-sm text-gray-400 ">Manage the Settings of your Account here</p>
+        </div>
+
+        <div class="photo flex  flex-col gap-4">
+            <div class="title text-2xl font-medium m-0">Your Profil Icone</div>
+            <div class=" flex items-center gap-4  ">
+                <img class=" w-[100px] " [src]="'../../../assets/images/'+img" alt="">
+                <div class=" flex flex-col gap-2 ">
+                    <button *ngIf="!showIcons" (click)="changeIcon()" class=" w-[10rem] h-[2.5rem] rounded-md bg-amber-400 text-white text-lg font-medium hover:bg-amber-300 ">Change Icon</button>
+                    <button *ngIf="showIcons" (click)="submitIcon()"  class=" w-[10rem] h-[2.5rem] rounded-md bg-amber-400 text-white text-lg font-medium hover:bg-amber-300">Submit Icon</button>
+                    <button class=" w-[10rem] h-[2.5rem] rounded-md border border-solid border-gray-400  text-lg font-medium flex justify-center items-center hover:bg-amber-300ter gap-[.5rem] hover:bg-gray-50 "><img class=" w-[20px] " src="../../../assets/images/delete.png" alt=""> Delete Icon</button>
+                </div>
+             
+            </div>
+           
+            <p class=" text-xs text-gray-400  ">choose the icon whitch represent your personality or your style</p>
+        </div>
+
+        <form (submit)="onSubmit(myForm)"   #myForm="ngForm" class="w-full flex justify-start items-center h-full" >
+            <div class="relative register    lg:w-[90%] sm:w-full rounded-[10px] flex justify-center items-start flex-col gap-4" >
+                 
+                <div class="title text-2xl font-medium m-0">Your Profil Informations</div>         
+                    <input disabled type="email" class="lg:w-[80%] sm:w-[95%] h-[2rem] rounded-lg border border-solid border-gray-200   p-2 outline-none" placeholder="your mail" name="email" [(ngModel)]="user.email" required #email="ngModel" email>
+                    <div class=" lg:w-[80%] sm:w-[95%] flex justify-between ">
+                        <input type="text" class="w-[48%] h-[2rem] rounded-lg border border-solid border-gray-200   p-2 outline-none" placeholder="your name" name="name" [(ngModel)]="user.name" required #name="ngModel" >
+                 
+                        <input type="text" class="w-[48%] h-[2rem] rounded-lg border border-solid border-gray-200   p-2 outline-none" placeholder="your profession" name="profession" [(ngModel)]="user.profession" required #profession="ngModel" >
+    
+                    </div>
+        
+                    <input type="number" min="5" max="100" class="lg:w-[80%] sm:w-[95%] h-[2rem]  rounded-lg border border-solid border-gray-200 p-2 outline-none" placeholder="your age" name="age" [(ngModel)]="user.age" required #age="ngModel">
+                    <textarea name="bio" [(ngModel)]="user.bio" required #bio="ngModel"  placeholder="Describe your self..." class="  border lg:w-[80%] sm:w-[95%] outline-none  h-[8rem] p-2  resize-none " 
+                    oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>
+            
+                    <mat-form-field class="example-chip-list lg:w-[80%] sm:w-[95%] " color="warn" appearance="fill">
+                        <mat-label>Tags For Article</mat-label>
+                        <mat-chip-list #chipList >
+                          <mat-chip *ngFor="let fruit of fruits" (removed)="remove(fruit)">
+                            {{fruit.name}}
+                            <button matChipRemove>
+                              <mat-icon>cancel</mat-icon>
+                            </button>
+                          </mat-chip>
+                          <input placeholder="New Tag..."
+                                 [matChipInputFor]="chipList"
+                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                 [matChipInputAddOnBlur]="addOnBlur"
+                                 (matChipInputTokenEnd)="add($event)">
+                        </mat-chip-list>
+                      </mat-form-field>
+                    <button  type="submit" class="p-2 h-[2.5rem] bg-[#164372] text-white w-[10rem] flex items-center justify-center rounded-md text-lg  font-medium" >Upgrade Profil</button>
+                    
+
+                </div>
+            </form>
+
+    </div>
+
+
+    <div class="right lg:w-[40%] sm:w-full lg:pt-[7rem] "> 
+        <div *ngIf="showIcons" class=" lg:sticky  lg:top-[12rem] lg:left-4 sm:bg-gray-50 sm:w-[90%] sm:rounded-b-md sm:m-auto sm:p-2 sm:shadow-md ">
+            <button (click)="changeIcon()" class=" rounded-md float-right  text-lg font-medium mb-[1rem] "><i class="fa-solid fa-xmark"></i> </button>
+            <div  class="icons w-full flex flex-wrap gap-4 ">
+                <img (click)="change(icon)" class=" lg:w-[60px] sm:w-[30px] sm:h-[30px] hover:cursor-pointer " *ngFor="let icon of icons" [src]="'../../../assets/images/'+icon" alt="">
+            </div>
+        </div>
+           
+            <div *ngIf="!showIcons" class=" sm:hidden  lg:sticky  sm:relative lg:top-[22rem] w-[85%] lg:h-[10rem] bg-amber-50 lg:mt-[10rem] sm:mt-[8vh] pl-[.5rem] pt-[.5rem] ">
+                <img  class=" absolute top-[-50%] right-[-25%] " src="../../../assets/images/mobile-app-settings-1805550-1537823.png" alt="">
+                <p class=" w-[50%] font-semibold  ">you can manage your settings</p>
+                <p class=" w-[50%]  text-xs text-gray-400 leading-4 ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi numquam consectetur illum doloremque sapiente! Aliquam</p>
+            </div>
+    </div>
+           
+</div>

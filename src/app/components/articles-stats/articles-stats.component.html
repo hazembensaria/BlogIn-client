@@ -1,0 +1,60 @@
+
+
+<div class="father w-full">
+    <!-- <div class=" w-full flex justify-end pt-12 lg:pr-[15%] sm:px-4 ">
+        <div  class=" lg:w-[50%] sm:w-full  ">
+            <canvas id="chart"></canvas>
+          </div>
+    </div> -->
+   
+
+
+
+
+
+      <div class="articles-state w-full sm:pl-2 flex-col flex justify-center items-center">
+        <div class=" lg:w-[75%] sm:w-full sm:pl-4 lg:text-5xl sm:text-4xl font-medium flex justify-start items-end gap-2 lg:my-[3rem] sm:my-8 ">
+            <i class="fa-solid fa-chart-simple  text-xl "></i> <div> Articles Stats</div>
+        </div>
+        <div class="caption lg:w-[75%] sm:w-[90%] sm:ml-4 flex justify-start gap-4 border-b-2 border-solid mb-12 border-b-gray-200">
+            <div (click)=" getFinishsArticles()" id="a1" class=" active flex  justify-center items-center font-medium text-gray-200  p-2 hover:cursor-pointer  ">As Owner</div>
+            <div (click)="getCollaborationArticles()" id="a2" class=" flex  justify-center items-center  font-medium text-gray-200 p-2 hover:cursor-pointer  ">As Collaborator</div>
+           
+        </div>
+        <div class="caption lg:w-[75%] sm:w-full flex justify-end ">
+            <div  class="lg:text-xl flex relative  justify-center items-center  lg:font-medium text-gray-500 lg:w-[10%] sm:w-[15%] av "> <div class="ol rounded-md border border-solid border-gray-400 p-2 scale-0 absolute top-[-100%] h-[4rem] translate-y-[-70%] bg-white lg:w-[200%] sm:w-[500%] text-xs  "> Number of visitors who clicked on a story's page , this number capture also views that are read from a share link.  <div class=" border-b border-r border-solid border-gray-400 absolute w-[10px] h-[10px] rotate-45 bg-white  bottom-[-5px] left-[48%] "></div></div>   views</div>
+            <div  class="lg:text-xl flex relative  justify-center items-center  lg:font-medium text-gray-500 lg:w-[10%] sm:w-[15%] av"> <div class="ol rounded-md border border-solid border-gray-400 p-2 scale-0 absolute top-[-100%] h-[3rem] translate-y-[-70%] bg-white text-xs lg:w-[200%] sm:w-[500%] ">Number of unique readers who liked this story. <div class=" border-b border-r border-solid border-gray-400 absolute w-[10px] h-[10px] rotate-45 bg-white  bottom-[-5px] left-[48%] "></div></div>  likes</div>
+            <div class="lg:text-xl flex relative  justify-center items-center  lg:font-medium text-gray-500 lg:w-[10%] sm:w-[15%]  av"> <div class="ol rounded-md border border-solid border-gray-400 p-2 scale-0 absolute top-[-100%] sm:right-[-1rem] h-[4rem]  bg-white text-xs lg:w-[200%] sm:w-[500%]  ">Totale time spent by users reading your article, we calculate it with minutes.<div class=" border-b border-r border-solid border-gray-400 absolute w-[10px] h-[10px] rotate-45 bg-white  bottom-[-5px] lg:left-[48%] sm:left-[83%] "></div></div><span class="sm:hidden">read time </span> <span class="lg:hidden ">R/T</span> </div>
+            <div class="lg:text-xl flex relative  justify-center items-center  lg:font-medium text-gray-500 lg:w-[10%] sm:w-[15%] av "> <div class="ol rounded-md border border-solid border-gray-400 p-2 scale-0 absolute top-[-100%] sm:right-[.5rem] h-[4rem] translate-y-[-70%] bg-white lg:w-[200%] sm:w-[500%] text-xs ">Avrage time spent by one user reading your article, we calculate it with minutes per user. <div class=" border-b border-r border-solid border-gray-400 absolute w-[10px] h-[10px] rotate-45 bg-white  bottom-[-5px] left-[48%] sm:left-[90%] "></div></div> <span class="sm:hidden">read ration</span> <span class="lg:hidden ">R/R</span></div>
+        </div>
+        <div *ngFor="let article of articles" class="article-state flex pb-2 lg:w-[75%] sm:w-full mb-[3rem] lg:h-[5rem] sm:h-16 border-b border-solid border-b-gray-200 " >
+            <div class=" lg:w-[60%] sm:w-[40%] lg:text-xl sm:text-lg  font-medium flex flex-col items-start justify-end ">
+               <div class="overflow-hidden w-full text-ellipsis whitespace-nowrap  "> {{article.title}} </div>
+               <div class="flex text-xs gap-2 ">
+                <p (click)="readArticle(article._id)"  class=" text-xs text-gray-400 hover:cursor-pointer hover:text-gray-700">Visit Article</p>
+                <p class=" text-xs text-gray-400 " *ngIf="article.collaborators.length" >with {{article.collaborators.length}}</p>
+                <p class=" text-xs text-gray-400 " *ngIf="!article.collaborators.length" >solo</p>
+              </div>
+            </div>
+            <div class=" lg:w-[10%] sm:w-[15%]  flex  items-end justify-center ">
+              
+               <div class="lg:text-2xl font-medium ">{{article.views.length}}</div>   
+            </div >
+            <div class=" lg:w-[10%] sm:w-[15%]  flex  items-end justify-center ">
+                
+                <div class="lg:text-2xl font-medium ">{{article.likes.length}}</div>
+                
+            </div>
+            <div class=" lg:w-[10%] sm:w-[15%]  flex  items-end justify-center ">
+               
+                <div class="lg:text-2xl font-medium ">{{article.readTime}} <span class="text-xs text-gray-500 ">Mn</span></div>
+              
+            </div>
+            <div class=" lg:w-[10%] sm:w-[15%]  flex  items-end justify-center ">
+                
+                <div class="lg:text-2xl font-medium ">{{article.avg}} <span class="text-xs text-gray-500 ">Mn</span> </div>
+              
+            </div>
+        </div>
+      </div>
+</div>

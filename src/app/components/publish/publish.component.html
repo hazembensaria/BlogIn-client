@@ -1,0 +1,52 @@
+<div class="father w-full flex items-center justify-center lg:p-[10rem] sm:p-4 sm:h-[92vh] ">
+<div class="left w-[50%] flex flex-col sm:hidden  ">
+    <p class=" text-4xl font-semibold ">Final check</p>
+    <div class=" w-[70%] h-[10rem] bg-gray-50 rounded-lg text-sm font-light text-gray-700 flex justify-center items-center mb-8 "><p class="w-[70%]">Include tags 
+       or topics in your story to make it more inviting to readers and helps theme to reach to your article.</p>  </div>
+    <div class=" fami border-b border-solid border-b-gray-300 text-xl font-medium w-[50%] text-gray-600 mb-8 ">{{title}}</div>
+    <div class=" overflow-y-hidden h-[1.5rem]  fami  border-b border-solid border-b-gray-300  font-medium w-[50%] text-gray-600 mb-8 ">{{section[0]}}</div>
+</div>
+<div class="right lg:w-[50%] sm:w-full flex flex-col  gap-4 ">
+    <div class=" lg:text-xl sm:text-lg font-semibold ">Published by <span class="fami text-3xl "> {{user.name}}</span></div>
+    <p class="text-xs  text-gray-500"><span *ngIf="!collaborators.length">You don't have collabirators in this Article</span>
+    <span class=" text-lg " *ngIf="collaborators.length">with {{collaborators.length}} collaborator(s)</span>
+    </p>
+    <mat-form-field class="example-chip-list w-full " color="warn" appearance="fill">
+        <mat-label>Tags For Article</mat-label>
+        <mat-chip-list #chipList >
+          <mat-chip *ngFor="let fruit of fruits" (removed)="remove(fruit)">
+            {{fruit.name}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input placeholder="New Tag..."
+                 [matChipInputFor]="chipList"
+                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                 [matChipInputAddOnBlur]="addOnBlur"
+                 (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+      <p class="text-xs  text-gray-500"><span class="text-lg text-black font-medium "> Note:</span>When you publish on z-one,
+         your story is immediately accessible and available 
+        to friends . There is no review, no approval, and no waiting.
+    </p>
+    <div class=" flex items-center justify-start gap-4 ">
+      <button *ngIf="!showSchedule && !scheduleDate" (click)="publishArticle()" class="bg-[#03a811] px-4 flex justify-center text-white lg:text-lg sm:text-sm  h-[2.2rem] leading-4 items-center rounded-[20px] hover:cursor-pointer ">Confirm Publish</button>
+      <button *ngIf="!showSchedule && !scheduleDate" (click)="showSchedule=true" class="bg-gray-400 px-4  flex justify-center text-white  lg:text-lg sm:text-sm  h-[2.2rem] leading-4 items-center rounded-[20px] hover:cursor-pointer ">Schedule for later</button>
+      <div *ngIf="showSchedule || scheduleDate">
+        <input [(ngModel)]="date" [value]="date" type="datetime-local" class=" w-full border-b border-solid border-b-gray-400 mb-4 " [min]="date">
+        <p>
+          This story will be published automatically within five minutes of the specified time
+        </p>
+        <div class=" flex items-center justify-start lg:gap-4 sm:gap-1">
+          <button *ngIf="!scheduleDate" (click)="shcedule()" class="bg-[#03a811] px-4 flex justify-center text-white lg:text-lg sm:text-sm  h-[2.2rem] leading-4 items-center rounded-[20px] hover:cursor-pointer ">Confirm scheduling</button>
+          <button *ngIf="scheduleDate" (click)="reshcedule()" class="bg-[#03a811] px-4 flex justify-center text-white lg:text-lg sm:text-sm  h-[2.2rem] leading-4 items-center rounded-[20px] hover:cursor-pointer ">Confirm Rescheduling</button>
+          <button (click)="cancelSchedule()" class="bg-gray-400 px-4 flex justify-center text-white  lg:text-lg sm:text-sm  h-[2.2rem] leading-4 items-center rounded-[20px] hover:cursor-pointer ">Cancel scheduling</button>
+    
+        </div>
+      </div>
+    </div>
+  
+</div>
+</div>

@@ -1,0 +1,21 @@
+<div class="father  flex justify-center items-center  w-[90%] ">
+    <form    #myForm="ngForm" class="w-full flex justify-center items-center h-full" >
+    <div class="relative register p-4 pt-[3rem] w-full  rounded-[10px] flex justify-center items-center flex-col gap-4" >
+        
+        <p class=" text-5xl font-semibold mb-0 text-[#164372] ">Welcome Back...</p>
+        <p class=" text-lg font-medium mt-0 text-gray-400 ">please enter your email and password</p>
+            <input type="text" class="w-[70%]  h-[2rem] rounded-xl bg-amber-100 p-2 outline-none" placeholder="your mail" name="email" ngModel required #email="ngModel" email>
+            <input type="password" class="w-[70%] h-[2rem] rounded-xl bg-amber-100 p-2 outline-none" placeholder="your password" name="password" ngModel required #password="ngModel">
+           <p class=" text-gray-400 "   >by login , you agree to our<span class=" text-cyan-500 underline hover:cursor-pointer " > Terms & Conditions</span> </p>
+           <div class=" p-4 w-[90%] flex justify-around items-center ">
+            <button (click)="onSubmit(myForm,$event)"  type="submit" class="p-2 h-[2.5rem] bg-[#164372] text-white w-[10rem] flex items-center justify-start rounded-md text-lg  font-medium" >Login...</button>
+
+
+            <button class=" text-md font-semibold text-[#164372] ">Forgot Password     </button>
+
+           </div>
+
+            
+        </div>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+
+<div class="father   flex w-full sm:flex-col-reverse ">
+    <div class="left sm:pt-8 lg:pt-[5rem] lg:w-[70%] sm:w-full ">
+        
+        <div class="notifications sm:w-full lg:w-[80%] m-auto flex flex-col sm:gap-2 lg:gap-4   justify-center items-center">
+           
+           
+            <div class="notification sm:w-[90%] lg:w-[70%]  lg:px-4  border-b py-2 border-solid  " *ngFor="let notif of notifications" >
+                
+                <div (click)="visitProfil(notif.sender)" class=" flex gap-2 hover:cursor-pointer mb-2 justify-start items-center">
+                    <img class=" lg:w-[30px] lg:h-[30px] sm:w-[25px] sm:h-[25px] " [src]="'../../../assets/images/'+notif.senderIcon" alt="">
+                    <div>{{notif.senderName}}</div>
+                </div>
+               
+                <div *ngIf="notif.type =='join'" class=" lg:text-lg font-medium " >{{notif.senderName}} invited you <span *ngIf="notif.others.length-1>1" > and <span class=" text-cyan-600  underline hover:cursor-pointer ">{{notif.others.length-1}} others </span> </span>  to write an article</div>
+                <div *ngIf="notif.type =='share'" class=" lg:text-lg font-medium " >{{notif.senderName}} share this article to you</div>
+                <div *ngIf="notif.type =='follow'" class=" lg:text-lg font-medium " >{{notif.senderName}} start following you </div>
+                <div *ngIf="notif.type =='comment'" class=" lg:text-lg font-medium " >{{notif.senderName}} comment in one of your articles </div>
+                <div *ngIf="notif.type =='like'" class=" lg:text-lg font-medium " >{{notif.senderName}} like one of your articles </div>
+
+
+                <p class="text-sm text-green-600 hover:cursor-pointer" (click)="readArticle(notif.articleId)" *ngIf="notif.type ==='comment'||notif.type ==='like'">  Check out!</p>
+                <p class="lg:text-lg "  *ngIf="notif.type =='join'">   Article Brief :{{notif.title}}</p>
+                <p class="lg:text-lg "  *ngIf="notif.type =='share'">   Article Title : <span (click)="readArticle(notif.articleId)" class=" text-cyan-600  underline hover:cursor-pointer  ">{{notif.title}}</span>  </p>
+                <div class="flex items-center justify-end sm:gap-4 lg:gap-8 sm:mb-2 ">
+                    <button *ngIf="!notif.accepted && notif.type =='join' " (click)="addCollaborator(notif.articleId , notif._id , notif.others)" class="bg-amber-100 px-8 flex justify-center text-yellow-700  h-[1.8rem] leading-4 items-center rounded-[7px] hover:cursor-pointer ">  Join</button>
+                    <button   *ngIf="!notif.accepted && notif.type =='join'"  class="bg-red-100 px-8 flex justify-center text-red-700  h-[1.8rem] leading-4 items-center rounded-[7px] hover:cursor-pointer ">Refuse</button>
+                    <div disabled  *ngIf="notif.accepted && notif.type =='join'"  class="bg-green-100 px-8 flex justify-center text-green-700  h-[1.8rem] leading-4 items-center rounded-[7px]">You joined this article</div>
+
+                </div>
+                <div class="text-xs text-gray-400 sm:font-light " >   {{notif.date|date:'medium'}}</div>
+
+            </div>
+        </div>
+    </div>
+    <div class="right sm:w-full lg:w-[30%] lg:pt-[5rem] sm:py-4 bg-gray-50 border-l border-solid sm:flex sm:justify-center sm:items-center sm:sticky sm:top-[8vh] sm:shadow-md ">
+        <div class=" flex flex-col justify-center items-center gap-0 sticky top-[10rem] ">
+            <div class=" sm:text-4xl lg:text-7xl font-medium flex justify-start items-center fami gap-4 "><i class="fa-solid fa-bell sm:text-2xl lg:text-3xl "></i>Notifications</div>
+            <div class=" sm:text-xs ">You can delete all your notifications by clicking  <button class=" text-blue-600 underline font-medium " (click)="deleteNotification()">Here</button> </div>
+
+        </div>
+    </div>
+</div>

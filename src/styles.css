@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import '~ngx-toastr/toastr';
+@import '~ngx-sharebuttons/themes/default';
+/* html, body { height: 100%; }
+body { margin: 0;  } */
+html{
+    scroll-behavior: smooth;
+    color: #291c30;
+}

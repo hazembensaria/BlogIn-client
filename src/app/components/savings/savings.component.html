@@ -1,0 +1,104 @@
+
+
+<div class="father w-full lg:pt-[5rem] flex sm:flex-col-reverse  ">
+
+    <div *ngIf="showFoloowersOrFollowings" class=" p-8 flex overflow-y-scroll flex-col w-full h-full fixed top-0  left-0 bg-[rgba(255,255,255,0.8)] backdrop-blur-md  z-[99999999]   ">
+        <div class=" flex w-full items-center justify-end lg:pr-[8rem] lg:pt-[5rem] "><i (click)="showFoloowersOrFollowings=false" class="fa-solid fa-xmark text-2xl text-gray-300 hover:cursor-pointer hover:text-gray-400  "></i></div>
+        <div class=" w-full flex flex-col gap-4 justify-center lg:items-center mt-[5rem] ">
+            <div class="follower  lg:w-[40%]  flex justify-between items-center gap-2 " *ngFor="let following of followersOrFollowings " >
+                <div class="flex w-[70%] justify-start  gap-4 ">
+                    <img [src]="'../../../assets/images/'+following.image"  class=" w-[30px] h-[30px] " alt="">
+                    <div class="flex flex-col items-start justify-start ">
+                       <div (click)="visitProfil(following._id)" class=" font-medium hover:cursor-pointer ">{{following.name}}</div>
+                        <div class="text-gray-500 font-light text-sm sm:hidden ">{{following.bio}}</div> 
+                    </div>
+                </div>
+               
+            <button  *ngIf="!following.followers.includes(user._id)"  (click)="followother(following._id , following.followers)"  class="bg-[#03a811] p-4 flex justify-center text-white h-[2rem]  items-center rounded-[20px] hover:cursor-pointer hover:bg-[#03960f] ">Follow</button>
+            <div *ngIf="following.followers.includes(user._id)"    class=" border border-solid border-gray-400 p-4 flex justify-center  h-[2rem]  items-center rounded-[20px]  ">Following</div>
+   
+            </div>
+        </div>
+      
+    </div>
+
+
+
+    <div class="left lg:w-[70%] sm:w-full  flex flex-col  lg:items-end ">
+        <div class="nav sm:ml-4 flex w-[80%] justify-start lg:gap-[2rem] border-b box-content border-solid border-b-gray-300  ">
+            <div id="a1" (click)="getFinishsArticles()"  class="item hover:cursor-pointer text-[rgba(117,117,117,1)] hover:text-gray-600 p-2 active">Own</div>
+            <div id="a2" (click)="getUnfinishArticles()" class="item hover:cursor-pointer text-[rgba(117,117,117,1)] hover:text-gray-600 p-2">Working on</div>
+            <div id="a3" (click)="getCollaborationArticles()" class="item hover:cursor-pointer text-[rgba(117,117,117,1)] hover:text-gray-600 p-2">Collaboration</div>
+        </div>
+        
+        <div class="finishArticles w-full pt-[2rem] flex flex-col items-end ">
+           
+            <article  *ngFor="let article of finishArticles"  class=" lg:w-[80%] sm:w-full flex flex-col lg:border-l-4 lg:rounded-lg px-4 lg:border-solid border-l-amber-400 lg:pb-[3rem] lg:mt-[3rem]   ">
+                <div  class="top flex w-full justify-between mb-4  items-center   ">
+                   
+                    <div class="flex  justify-start items-center gap-4 ">
+                        <img  class=" w-[30px] bg-amber-50 hover:cursor-pointer " [src]="'../../../assets/images/'+ article.autherIcone" [alt]="article.autherIcone">
+                        <div class="flex flex-col  justify-start ">
+                            <div  class=" lg:text-lg font-medium hover:cursor-pointer  ">{{article.autherName}}</div>
+                            <div *ngIf="article.collaborators.length" class=" text-xs text-gray-400 ">With {{article.collaborators.length}} others</div>
+                            <div *ngIf="!article.collaborators.length" class=" text-xs text-gray-400 ">solo</div>
+
+                        </div>
+                        <p  class=" text-green-600  font-medium sm:text-xs " ><span *ngIf="article.isPublish && article.collaborators.includes(user._id)">Published</span><span *ngIf="!article.isPublish && article.collaborators.includes(user._id)">Created</span></p>   
+                     <p class=" text-gray-600 font-light sm:text-xs " >{{article.date | date}}</p>
+                        <div *ngIf="!article.isPublish && article.scheduleDate" >  <i class="fa-solid fa-calendar-days"></i></div>
+                    </div>
+                      
+                     <p [attr.rating]="article.rating.length+' people rated this'" class=" text-gray-500 rating relative hover:cursor-default " *ngIf="article.avg>=1">Rated {{article.avg}} <i class="fa-solid fa-star"></i></p>
+                </div>
+                <div (click)="editeArticle(article._id)" class="mid w-full hover:cursor-pointer ">
+                    <p *ngIf="article.title" class=" sm:text-lg lg:text-3xl font-semibold " >{{article.title}}</p>
+                    <p *ngIf="!article.title" class=" text-3xl font-semibold " >Untiteled</p>
+                    <p class="text-[rgba(41,41,41,1)] leading[24px] text-[17px] ellipsis famile sm:hidden ">{{article.sections[0]}}</p>
+                    <div class="  flex justify-end gap-8 pr-4 items-center ">
+                        <!-- <img src="../../../assets/images/points.png" class=" w-[25px] hover:cursor-pointer " alt=""> -->
+                       
+                        
+                    </div>
+                </div>
+                <div class="bot flex items-center justify-between sm:flex-col ">
+                    <div class="tags flex gap-2 sm:w-full sm:flex-wrap ">
+                        <div  class="tag pl-4 pr-4 rounded-[15px] bg-gray-100 h-8 flex justify-center items-center hover:cursor-pointer hover:bg-gray-200 " *ngFor="let tag of article.tags" >{{tag.name}}</div>
+                    </div>
+                    <div class="sm:w-full">
+                        <button class="sm:float-right" mat-button [matMenuTriggerFor]="afterMenu">        
+                            <i class="fa-solid fa-ellipsis"></i>
+                           
+                        </button>
+                        <mat-menu #afterMenu="matMenu" xPosition="after">
+                            <button *ngIf="article.isPublish" (click)="openDialog(article._id , article.title , article.shares.includes(user._id), article.auther , article.collaborators)" mat-menu-item >Share Article</button>
+                            <button *ngIf="article.isPublish" (click)="switchCommentStat(article._id ,article.commentDisabled ,finishArticles.indexOf(article))" mat-menu-item> <span *ngIf="!article.commentDisabled" >Turn Off comments</span><span *ngIf="article.commentDisabled" >Turn On comments</span></button>
+                            <button *ngIf="article.isPublish" (click)="readArticle(article._id)" mat-menu-item>Read Article</button>
+                            <button (click)="editeArticle(article._id)" mat-menu-item>Edit Article</button>
+                            <button *ngIf="article.auther===user._id" (click)="deleteArticle(article._id ,finishArticles.indexOf(article))" mat-menu-item>Delete Article</button>
+                            <button (click)="stat()" *ngIf="article.isPublish" mat-menu-item>Article Stats</button>
+                        </mat-menu>
+                    </div>
+                   
+                   
+                </div>
+                <hr class=" lg:hidden my-4  ">
+            </article>
+        </div>
+        <div *ngIf="!finishArticles.length" class="flex justify-center items-center relative unfind lg:w-[70%] sm:w-[85%] sm:m-auto lg:h-[20rem] sm:h-[10rem]  bg-gray-50 rounded-lg">
+             <div class=" text-lg text-gray-700 text-center  ">We don't have any articles in this section !</div>
+            <img src="../../../assets/images/undraw_no_data_re_kwbl.svg" class=" absolute lg:bottom-[-80px] lg:right-[-80px] sm:bottom-[-50px] sm:right-[-10px] lg:w-[200px] sm:w-[80px] " alt="">
+        </div>
+    </div>
+   <div class="right sm:rounded-b-[30px] sm:z-[9999] flex gap-4 flex-col items-center sm:pt-4 sm:mb-8 lg:w-[30%] lg:h-[20rem] sm:h[10rem] sm:bg-gray-50 sm:shadow-md sticky sm:top-[8vh] lg:top-[21vh] ">
+        <img [src]="'../../../assets/images/'+user.image" class=" lg:w-[150px] lg:h-[150px] sm:w-[70px] sm:h-[70px] " alt="">
+        <div>{{user.email}}</div>
+        <div class=" w-full flex  items-center justify-center gap-16 ">
+            <p (click)="getFollowers()"   class=" text-lg font-[400] hover:cursor-pointer text-gray-600    hover:text-black">{{user.followers.length}} Followers</p>
+            <p (click)="getFollowings()"    class="text-lg font-[400] hover:cursor-pointer text-gray-600  hover:text-black ">{{user.followings.length}} Following </p>
+        </div>
+        
+   </div>
+    
+</div>
+

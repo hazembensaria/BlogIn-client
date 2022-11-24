@@ -1,0 +1,19 @@
+<div class="father lg:w-[35rem] sm:w-[16rem] ">
+    <div class=" flex justify-between items-center sm:pr-4  ">
+        <div class=" text-lg font-medium ">
+            Report this post</div>
+            <button [mat-dialog-close]><i class="fa-solid fa-xmark text-lg "></i></button>
+    </div>
+<div class="problems flex flex-col gap-2 lg:my-8 sm:my-2 ">
+    <div class="problem sm:text-lg lg:text-xl font-medium " *ngFor="let problem of problems" >
+        <input (click)="selectProblem(problem)" type="checkbox">
+        {{problem}}
+
+    </div>
+</div>
+<textarea  [(ngModel)]="desc" type="text" name="title" placeholder="You want to add something ... " class=" overflow-y-scroll   w-[95%] sm:min-h-[3rem] lg:min-h-[6rem]  outline-none  lg:text-lg  resize-none " 
+                
+></textarea>
+<button (click)="report()" [mat-dialog-close]  class="bg-red-300 pl-4 pr-4 flex justify-center text-red-900  h-[1.8rem] leading-4 items-center rounded-[5px] hover:cursor-pointer ">Send report</button>
+
+</div>

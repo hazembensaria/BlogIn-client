@@ -1,0 +1,27 @@
+<div class="father lg:w-[40rem] sm:w-[16rem]">
+    <div class=" flex justify-between items-center w-full pr-4 ">
+        <div class=" text-lg font-medium ">
+            Share this post</div>
+            <button [mat-dialog-close]><i class="fa-solid fa-xmark text-lg "></i></button>
+    </div>
+    
+        <form (keyup)="autoSearchFreind($event)"  #myForm="ngForm" class="search relative lg:w-[85%] mt-8 ">
+            
+            <div>
+              <input autocomplete="off"  name="people" [(ngModel)]="freindToSearch" required #people="ngModel" type="text" [placeholder]="'Search in your followings . . . '" required >
+            </div>
+        </form>
+    <div *ngIf="followings.length" class="followers overflow-y-scroll h-[8.2rem] mt-8 flex flex-col gap-3 ">
+            
+        <div class="follower w-full flex justify-start items-center gap-2 " *ngFor="let following of followings " >
+            <input [checked]="collaborators.includes(following._id)" (click)="addCollaborator(following._id )" type="checkbox">
+            <img [src]="'../../../assets/images/'+following.image"  class=" w-[30px] h-[30px] " alt="">
+        <div>{{following.name}}</div>
+        </div>
+
+
+    </div>
+    <div class=" mb-8 text-green-600 text-xs hover:cursor-pointer " (click)="loadMoreFreinds()">See More</div>
+    <button (click)="sendNotification()" [mat-dialog-close]  class="bg-[#03a811] pl-4 pr-4 flex justify-center text-white  h-[1.8rem] leading-4 items-center rounded-[20px] hover:cursor-pointer ">Share Article</button>
+
+</div>

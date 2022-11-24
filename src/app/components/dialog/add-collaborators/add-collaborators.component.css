@@ -1,0 +1,32 @@
+  /*for the search ber*/
+
+ 
+  
+  .search > div > input {
+    color: black;
+    font-size: 16px;
+    background: transparent;
+   
+    height: 35px;
+    padding: 10px;
+    border: solid 1px darkgray;
+    outline: none;
+    border-radius: 35px;
+    transition: width 0.5s;
+  
+  }
+  .search > div > input:hover{
+    cursor:text;
+  }
+  /*end of css of search bar*/
+  .followers::-webkit-scrollbar{
+    width: 7px;
+  }
+  .followers::-webkit-scrollbar-track {
+    background-color: rgb(237, 237, 237);
+    border-radius: 10px;
+  }
+  .followers::-webkit-scrollbar-thumb{
+    background: #ccc;
+    border-radius: 10px;
+  }

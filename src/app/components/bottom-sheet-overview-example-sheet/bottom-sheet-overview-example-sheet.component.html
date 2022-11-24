@@ -1,0 +1,12 @@
+
+<div class="father w-full ">
+    <app-login *ngIf="!state" ></app-login>
+    <app-register *ngIf="state" ></app-register>
+    <hr class=" mb-[2rem] "> 
+    <div class=" w-full flex justify-center items-center ">
+        <p *ngIf="!state" class=" text-md text-gray-400 ">you don't have an account yet ? <span class="text-lg text-cyan-500 underline hover: cursor-pointer  " (click)="change()">Create Account</span></p>
+        <p  *ngIf="state" class=" text-md text-gray-400 ">You allready have an account ? <span class="text-lg text-cyan-500 underline hover: cursor-pointer  " (click)="change()">Join Us Now  </span></p>
+
+    </div>   
+
+</div>

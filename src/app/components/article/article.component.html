@@ -1,0 +1,139 @@
+    
+    
+<div class="father w-full flex sm:flex-col ">
+    <div class="left lg:w-[70%] sm:w-full  flex justify-center items-start flex-col lg:py-16 sm:py-8 lg:pl-[11%] sm:px-4 ">
+        <div class="auther flex items-center justify-start gap-2 mb-4 w-full ">
+            <img (click)="visitProfil(article.auther)" [src]="'../../../../../assets/images/'+article?.autherIcone" class=" lg:w-[60px] sm:w-[50px] hover:cursor-pointer " alt="">
+            <div class=" flex flex-col justify-center w-full sm:gap-0  ">
+                <div (click)="visitProfil(article.auther)" class=" lg:text-xl  hover:cursor-pointer font-medium w-full ">{{article?.autherName}} </div>
+   
+                <div class=" flex items-center lg:gap-4 sm:gap-2 ">
+                    <div class="tag text-gray-400 sm:hidden" *ngFor="let tag of tags "> {{tag?.name}}</div>
+                    <div *ngIf="!isReading" (click)="playText()" class="flex justify-center items-center gap-1 text-[#03a811da] font-medium hover:cursor-pointer">Play Text<i class="fa-solid fa-circle-play"></i>    </div>
+                    <div *ngIf="isReading" (click)="pausText()" class="flex justify-center items-center gap-1 text-[#03a811da] font-medium hover:cursor-pointer">pause Text<i class="fa-solid fa-circle-pause"></i>  </div>
+                    <!-- <div (click)="stopText()" class="flex justify-center items-center gap-1 text-[#03a811da] font-medium hover:cursor-pointer">stop Text<i class="fa-solid fa-circle-play"></i>    </div> -->
+
+                    <button mat-button [matMenuTriggerFor]="afterMenu">        
+                        <i class="fa-solid fa-ellipsis"></i>
+                </button>
+                <mat-menu #afterMenu="matMenu" xPosition="after">
+                    <button class=" flex items-center justify-center text-[#333] " (click)="attachUser(article._id,article.attachedUsers  )"  mat-menu-item><span *ngIf="!article.attachedUsers.includes(user._id)"><i class="fa-solid fa-link mr-2"></i>Attach to my profil</span>
+                        <span *ngIf="article.attachedUsers.includes(user._id)"><i class="fa-solid fa-link-slash mr-2"></i>Remove attachement </span></button>
+                    <button class=" flex items-center justify-center text-[#333] " (click)="report(article._id , article.title)" mat-menu-item><i class="fa-solid fa-triangle-exclamation mr-2"></i>Report Article</button>
+
+            <button class=" flex items-center justify-center text-[#333] " (click)="openDialog()" mat-menu-item ><i class="fa-solid fa-share mr-2"></i><span>Share Article</span></button>
+        </mat-menu>
+                </div>
+                <span  *ngIf="collaborators.length" >In collaboration with <span class=" hover:cursor-pointer hover:font-medium " (click)="visitProfil(collab._id)" *ngFor="let collab of collaborators">{{collab.name}}</span></span>
+
+            </div>
+            
+        </div>
+        <div class="article  lg:w-[80%] sm:w-full flex flex-col lg:gap-8 sm:gap-4">
+            <div class="title lg:text-4xl sm:text-2xl fami w-full sm:first-letter:text-4xl lg:first-letter:text-6xl  ">{{title}}</div>
+            <div   class="sections  w-full ">
+                <div *ngFor="let section of section" class="section w-full mb-4 text-gray-500 text-xl fami first-letter:text-2xl " >{{section}}</div>
+            </div>
+        </div>
+
+        <div *ngIf="links.length" class="links w-[90%] mt-8 flex flex-col border-t border-gray-400 border-solid pt-4  ">
+            <div class=" text-xl font-medium "><i class="fa-solid fa-link"></i> Links or resources :</div>
+           <div *ngFor="let link of links" class="link">
+             <a class=" text-blue-700 underline text-xl font-medium " target="_blank" [href]="link.href">{{link.title}}</a>
+           </div>
+        </div>
+    </div>
+    <div class="right sm:rounded-t-[40px] lg:w-[30%] sm:w-full lg:border-l lg:border-solid pl-4  lg:bg-gray-50 sm:bg-gray-100 sm:pb-4 lg:fixed lg:right-0 lg:h-screen ">
+       
+        <div class="rating mt-4 ">
+            <p class=" text-lg font-medium ">Rate this article</p>
+            <div class="ratingStars flex gap-2 ">
+                <i [id]="'s'+star" (click)="rateArticle(star)" *ngFor="let star of rating" class="fa-regular fa-star  hover:cursor-pointer "></i>
+             
+            </div>
+        </div>
+        <hr class="my-4">
+         <!-- <form  #myForm="ngForm" class="search relative w-[85%] mt-8 ">
+            <div>
+              <input autocomplete="off"  name="people" ngModel required #people="ngModel" type="text" placeholder="Search Contact . . ." required >
+            </div>
+         
+        </form> -->
+        <div>
+            <p class=" text-2xl font-medium "> Comments ({{comments.length}})</p>
+        </div>
+        <div *ngIf="article.commentDisabled" class=" w-[95%] bg-red-100 rounded-lg h-[15rem] text-red-900 flex justify-center items-center text-lg font-medium ">Owner turned off comments for this article</div>
+        <div *ngIf="!article.commentDisabled" class=" relative  bg-white w-[95%] p-2 shadow-md rounded-md  ">   
+            <div class=" flex items-center justify-start gap-2 p-2 ">
+                <img [src]="'../../../assets/images/'+user?.image" class=" w-[30px] h-[30px]  " alt="">
+                <div class="  ">{{user?.name}}</div>
+            </div>
+            <!-- <p><textarea id="com" #com  [(ngModel)]="userComment"   (keydown.Backspace)="hideFollowers()"   type="text" name="title" (focus)="focus($event)" (blur)="blur($event)" placeholder="write Comment... " class=" z-[99999]  text-black bg-transparent relative mt-4 w-[95%]   pb-2 pl-2 outline-none font-medium  resize-none " 
+                
+                oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'>
+
+
+              
+
+            </textarea> </p> -->
+
+
+            <div  #ref class="  w-full  border-none outline-none  bg-white text-black  " (click)="focusdiv($event)" (keyup)="focusdiv($event)" (keydown.@)="mentionUser()"   aria-multiline="true" contenteditable="true" placeholder="Write Comment" >   </div>
+            <!-- <p class=" absolute bg-white left-[1rem] top-[4.35rem] " *ngIf="userComment">{{userComment}}</p> -->
+            <!-- <div *ngIf="showFollowers"  class=" p-2 w-full font-medium text-black text-xs flex-col gap-2 mb-4 justify-center items-center hover:cursor-default bg-white parentHide1 border border-solid shadow-sm border-[rgb(211,211,211)]  rounded-[5px] ">
+                <div (click)="appendUserMentionedName(following.name)" *ngFor="let following of followings" class=" w-full flex items-center justify-start gap-2 hover:bg-gray-100 hover:cursor-pointer rounded-md px-2 py-1 ">
+                    <img [src]="'../../../assets/images/'+ following.image" alt="" class=" w-[30px] h-[30px] ">
+                    <div>{{following.name}}</div>
+
+                </div>               
+            
+            
+            
+                <div class="corner1 bg-white "></div>
+            </div> -->
+
+            <div class=" w-full flex items-center justify-end gap-4 mt-8 ">
+                <button   class=" font-medium flex justify-center h-[2rem] leading-4 items-center rounded-[7px] hover:cursor-pointer ">Cancel</button>
+
+                <button (click)="saveComment()"  class="bg-green-600 px-4 flex justify-center text-white font-medium h-[2rem] leading-4 items-center rounded-[20px] hover:cursor-pointer ">Comment</button>
+
+            </div>
+        </div>
+        <div *ngIf="comments.length>0" class=" overflow-y-scroll lg:h-[47%] sm:h-[20rem] comments bg-white w-[95%] mt-2 rounded-md flex flex-col items-center justify-start p-4 ">
+            <div class="comment w-[95%] border-b border-solid border-b-gray-300 p-2 flex flex-col gap-4 " *ngFor="let comment of comments">   
+                <div class=" flex items-start w-full justify-between ">
+                    
+                    <div class=" flex items-center justify-start gap-2  ">
+                        <img [src]="'../../../assets/images/'+comment.autherIcone" class=" w-[30px] h-[30px]  " alt="">
+                        <div class=" flex flex-col  ">
+                            <div class=" font-medium text-gray-700 ">{{comment.autherName}}</div>
+                        <div class=" text-gray-500 font-light text-[9px] ">{{comment.date | date:'medium'}}</div>
+                        </div>
+                        
+                    </div>
+                    <button mat-button [matMenuTriggerFor]="afterMenu">        
+                        <i  class="fa-solid fa-ellipsis text-sm  "></i>
+                       
+                    </button>
+                    <mat-menu #afterMenu="matMenu" xPosition="after">
+                        
+                        <button mat-menu-item>Report this comment</button>
+                      
+                    </mat-menu>
+                </div>
+    
+                <div class=" text-gray-600 ">{{comment.content}}</div>
+
+                <div *ngIf="comment?.likes.includes(user?._id)" >
+                    {{comment.likes.length}} <i (click)="likeComment(comment._id,comment.likes.includes(user._id) ,  comments.indexOf(comment));" class="fa-solid fa-heart text-red-500 hover:cursor-pointer text-xs "></i>
+                </div>
+                <div *ngIf="!comment.likes.includes(user?._id)">
+                    {{comment.likes.length}} <i  (click)="likeComment(comment._id,comment.likes.includes(user._id) , comments.indexOf(comment))" class="fa-regular fa-heart text-xs hover:cursor-pointer"></i>
+                </div>
+            </div>
+            
+        </div>
+       
+        
+    </div>
+</div>

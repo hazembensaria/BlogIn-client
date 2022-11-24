@@ -1,0 +1,169 @@
+    
+
+    <div class="father flex w-full sm:flex-col-reverse search-results " 
+    infiniteScroll
+    [infiniteScrollDistance]="0.1"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()">
+        <div class="left w-[75%] sm:w-full lg:pl-[10rem] sm:p-0 pb-8 ">
+            
+            <div class="finishArticles lg:w-[80%] sm:w-full lg:pt-[4rem] lg:p-4 ">
+                <article *ngFor="let article of articles " class=" w-full flex flex-col hover:bg-[#fdfdfd] hover:shadow-lg  lg:border-l-4 rounded-lg p-4  lg:border-solid lg:border-l-amber-400  lg:mt-[3rem] sm:mt-4  ">
+                    <div (click)="readArticle(article._id)" class="top flex w-full relative justify-between mb-4  items-center  ">
+                       
+                        <div class="flex  justify-start items-center lg:gap-4 sm:gap-2 ">
+                            <img (click)="visitProfil(article.auther)" class=" w-[30px] bg-amber-50 hover:cursor-pointer " [src]="'../../../assets/images/'+ article.autherIcone" [alt]="article.autherIcone">
+                            <div class="flex flex-col  justify-start ">
+                                <div (click)="visitProfil(article.auther)" class=" text-lg font-medium hover:cursor-pointer  ">{{article.autherName}}</div>
+                                <div class=" text-xs text-gray-400 "><span  *ngIf="article.collaborators.length">With {{article.collaborators.length}} others</span><span  *ngIf="!article.collaborators.length">solo</span></div>
+                            </div>
+
+                         <p class=" text-gray-600 font-light sm:text-xs " >{{article.date | date:'mediumDate'}}</p>
+                         
+                        </div>
+                          
+                         <p   class=" myDIV1 text-gray-500 rating relative hover:cursor-default sm:text-xs " *ngIf="article.avg>=1">Rated {{article.avg}} <i class="fa-solid fa-star"></i></p>
+                         <div   class=" z-[9] font-light text-gray-500 text-xs float-right justify-center items-center hover:cursor-default bg-white parentHide1 border border-solid shadow-sm border-[rgb(211,211,211)]  rounded-[5px] ">
+                            
+                              {{article.rating.length}} Rated this
+                          
+                         
+                            <div class="corner1 bg-white "></div>
+                        </div>
+                    </div>
+                    <div (click)="readArticle(article._id)" class="mid w-full hover:cursor-pointer ">
+                        <p class=" lg:text-3xl sm:text-xl font-semibold " >{{article.title}}</p>
+                        <p class="text-[rgba(41,41,41,1)] leading[24px] text-[17px] ellipsis famile sm:hidden ">{{article.sections[0]}}</p>
+                      
+                    </div>
+                    <div class="bot flex items-center sm:flex-col justify-between w-full  ">
+                        <div class="tags flex lg:gap-2 sm:gap-1 sm:w-full sm:mb-1  sm:flex-wrap  ">
+                            <div (click)="searchByTag(tag.name)" class="tag lg:px-4 sm:px-2 rounded-[15px] bg-gray-100 lg:h-8 sm:h-[1.5rem] sm:text-xs flex-wrap flex justify-center items-center hover:cursor-pointer hover:bg-gray-200 " *ngFor="let tag of article.tags" >{{tag.name}}</div>
+                        </div>
+                        <div class=" flex items-center sm:justify-end lg:justify-center lg:gap-4 sm:gap-8 sm:w-full "> 
+                            
+                            <div *ngIf="article?.likes.includes(user?._id)" >
+                                {{article.likes.length}} <i (click)="likePost(article._id,article.likes.includes(user._id) ,  articles.indexOf(article) ,article.auther , article.collaborators);" class="fa-solid fa-heart text-red-500 hover:cursor-pointer "></i>
+                            </div>
+                            <div *ngIf="!article.likes.includes(user?._id)">
+                                {{article.likes.length}} <i  (click)="likePost(article._id,article.likes.includes(user._id) , articles.indexOf(article) , article.auther , article.collaborators)" class="fa-regular fa-heart hover:cursor-pointer"></i>
+                            </div>
+                            <i *ngIf="!user?.readLater.includes(article?._id)" (click)="readLaterArticle(article._id)" class="fa-regular fa-bookmark text-amber-400 hover:cursor-pointer "></i>
+                            <i *ngIf="user?.readLater.includes(article?._id)"(click)="readLaterArticle(article._id)" class="fa-solid fa-bookmark text-green-600 hover:cursor-pointer "></i>
+                            <button [matMenuTriggerFor]="afterMenu">        
+                                <i class="fa-solid fa-ellipsis"></i>
+                               
+                            </button>
+                            <mat-menu #afterMenu="matMenu" xPosition="after">
+                                <button class=" flex items-center justify-center text-[#333] " (click)="openDialog(article._id , article.title , article.shares.includes(user._id), article.auther , article.collaborators)" mat-menu-item ><i class="fa-solid fa-share mr-2"></i><span>Share Article</span></button>
+                                <button class=" flex items-center justify-center text-[#333] " (click)="attachUser(article._id,article.attachedUsers ,articles.indexOf(article) )"  mat-menu-item><span *ngIf="!article.attachedUsers.includes(user._id)"><i class="fa-solid fa-link mr-2"></i>Attach to my profil</span>
+                                    <span *ngIf="article.attachedUsers.includes(user._id)"><i class="fa-solid fa-link-slash mr-2"></i>Remove attachement </span></button>
+                                <button class=" flex items-center justify-center text-[#333] " (click)="report(article._id , article.title)" mat-menu-item><i class="fa-solid fa-triangle-exclamation mr-2"></i>Report Article</button>
+                            </mat-menu>
+                        </div>
+                       
+                       
+                    </div>
+                    <hr class="lg:hidden sm:mt-4">
+                </article>
+            </div>
+            <button (click)=" loadMoreArticles()"  class= " mt-4 topic px-4 rounded-[8px] py-2 bg-white h-10 border border-solid border-gray-400 ">Load More</button>
+        </div>
+        <div class="right sm:shadow-md lg:pb-8 sm:pb-4 lg:fixed lg:top-[8vh] lg:right-0  lg:h-[92vh] sm:bg-gray-50   lg:w-[25%] sm:w-full lg:border-l-[1px]  border-solid border-l-gray-300 flex justify-start items-center flex-col ">
+            <form (submit)="onSubmit()" #myForm="ngForm" class="search relative w-[85%] lg:mt-6 sm:mt-4  ">
+                <div class="sm:bg-white sm:rounded-[35px] ">
+                  <input autocomplete="off"   name="people" [(ngModel)]="itemToSearch" required #people="ngModel" type="text" placeholder="Search Contact . . ." required >
+                </div>
+                <div *ngIf="submitSearch" class="sezrchResult w-full  top-[2.5rem] bg-white shadow-md  absolute p-4 ">
+                    <p class="   text-gray-500 ">People</p>
+                    <hr class="mb-2">
+                    <div class="usersSearched flex flex-col w-full mb-8 gap-2 ">
+                        <div (click)="visitProfil(userSearched._id)"  *ngFor="let userSearched of usersSearched" class=" hover:cursor-pointer hover:bg-gray-50 rounded-md py-[3px] px-2  userSearched flex items-center gap-2 ">
+                            <img [src]="'../../../../../assets/images/'+userSearched.image" class=" w-[30px] " alt="">
+                            <div>{{userSearched.name}}</div>
+                            <div class=" ml-auto text-xs text-gray-600 " *ngIf="user._id===userSearched._id" >you</div>
+                        </div>
+                        
+                    </div>
+                    <div *ngIf="!usersSearched.length" class="userUnfind w-[80%] h-[2rem] bg-red-50 rounded-md text-gray-500 font-medium relative mb-8 flex justify-center items-center ">
+                        Sorry, We can't find any user
+                        <img src="../../../assets/images/audit.png" class=" w-[40px] h-[40px] absolute top-[-20px] right-[-20px] " alt="">
+                    </div>
+                    
+                    <p class="   text-gray-500 ">Articles</p>
+                    <hr class="mb-2">
+                    <div class="articleSearched flex flex-col gap-2 w-full ">
+                        <div (click)="readArticle(article._id)" *ngFor="let article of articleSearched" class="userSearched flex items-center gap-2  hover:cursor-pointer hover:bg-gray-50 rounded-md py-[3px] px-2">
+                            <img [src]="'../../../../../assets/images/'+article.autherIcone" class=" w-[30px] " alt="">
+                            <div>{{article.title}}</div>
+                        </div>
+                    </div>
+                    <div *ngIf="!articleSearched.length" class="userUnfind w-[80%] h-[2rem] bg-red-50 rounded-md text-gray-500 font-medium relative mt-8 flex justify-center items-center ">
+                        Sorry, We can't find any Article
+                        <img src="../../../assets/images/audit.png" class=" w-[40px] h-[40px] absolute top-[-20px] right-[-20px] " alt="">
+                    </div>
+                </div>
+            </form>
+    
+
+            
+            <div class="sugestion w-[90%] ml-8 mt-4 sm:hidden ">
+                <p class=" text-[18px] font-medium ">You maybe like to read this</p>
+                <div  *ngFor="let articleWantToRead of ArticleWantToRead" class="exampl w-full flex flex-col  hover:cursor-pointer  ">
+                    <div (click)="visitProfil(articleWantToRead.auther)" class=" w-full flex justify-start items-center gap-2 ">
+                        <img  [src]="'../../../assets/images/'+articleWantToRead.autherIcone" class=" w-[30px] " alt="">
+                        <p>{{articleWantToRead.autherName}}</p>
+                    </div>
+                    <p (click)="readArticle(articleWantToRead._id)" class=" text-[15px] font-semibold  ">{{articleWantToRead.title}}</p>
+                </div>
+            
+                <hr class=" mt-4 mb-4 ">
+
+            </div>
+            
+            <div class="topToppics flex flex-col pl-8 mb-6 sm:hidden ">
+                <p class=" text-[18px] font-medium ">Trinding Topics</p>
+
+                <div class="topToppics flex gap-2 flex-wrap">
+                    <button (click)="searchByTag(tag.name)" *ngFor="let tag of TrendingTags" class="topic pl-4 pr-4 rounded-[20px] pt-2 pb-2 bg-gray-200  ">{{tag.name}}</button>
+
+                </div>
+            </div>
+            <div class="peopleMayknow w-full pl-8 pr-4 flex flex-col sm:hidden ">
+                <p class=" text-[18px] font-medium ">You maybe Know those people</p>
+
+                <div *ngFor="let popularUser of popularUsers" class="people w-full flex justify-between items-center mb-4    ">
+                    
+                    <div class="  flex justify-center items-center gap-2 hover:cursor-pointer ">
+                        <img (click)="visitProfil(popularUser._id)" [src]="'../../../assets/images/'+popularUser.image" class=" w-[25px] " alt="">
+                        <div (click)="visitProfil(popularUser._id)" class="flex flex-col gap-1 relative ">
+                            <div class=" font-medium popularUserName  myDIV ">{{popularUser.name}}</div>
+                            <div class="parentHide absolute hidden ">
+                                <div class="hide w-[20rem] min-h-[13rem] p-2 pt-4  ">
+                                    <div class=" flex items-center justify-start gap-4 mb-4 ">
+                                        <img (click)="visitProfil(popularUser._id)" [src]="'../../../assets/images/'+popularUser.image" class=" w-[50px] " alt="">
+                                        <div class=" font-medium text-xl">{{popularUser.name}}</div>
+                                    </div>
+                                    <div *ngIf="popularUser.bio" class="text-gray-500 text-xs">{{popularUser.bio}}</div>
+                                    <div *ngIf="!popularUser.bio" class="text-gray-500 text-xs">{{popularUser.name}} is a memeber of Zone community</div>
+                                    <hr class="my-2 ">
+                                    <div *ngIf="popularUser.profession"  class=" w-full ">profession: <span class="text-gray-500 text-xs">{{popularUser.profession}}</span> </div>
+                                    <div class=" flex items-center justify-start gap-8 mt-4  ">
+                                         <div class="   ">{{popularUser.followers_count}} Followers</div>
+                                         <div class="   ">{{popularUser.following_count}} Followings</div>
+                                    </div>
+                                </div>
+                             
+                                <div class="corner  "></div>
+                            </div>
+                            <!-- <div class=" text-gray-400 text-sm font-light ">{{popularUser.profession}}</div> -->
+                            <div class=" text-gray-400 text-xs font-light">{{popularUser.followers_count}} Followers</div>
+                            
+                        </div>
+                      
+                    </div>
+                    <button  (click)="followUser(popularUser._id)"   class="topic px-4 rounded-[8px] py-1 bg-white  border border-solid border-gray-400 ">Follow</button>
+                </div>
+            </div>
+        </div>
+    </div>

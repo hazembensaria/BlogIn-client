@@ -1,0 +1,20 @@
+.father{
+    /* box-shadow: 1px 1px 3px #d3d3d3; */
+    border-bottom: 1px rgb(226, 226, 226) solid;
+}
+.fami{
+    font-family: 'Playfair Display', serif;
+}
+
+.corner{
+    border-top: 1px lightgray solid;
+    border-left: 1px lightgray solid;
+    width: 16px;
+    height: 16px;
+    rotate: 45deg;
+  }
+  .active{
+    box-sizing: border-box;
+    transition: all .1s ease-in-out;
+   border-bottom: 4px rgb(238, 207, 5) solid;
+}

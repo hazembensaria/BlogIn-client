@@ -1,0 +1,75 @@
+<div class="father father flex w-full sm:flex-col-reverse ">
+    <div class="left lg:w-[65%] lg:pl-[10rem] pb-8 sm:w-full ">
+        
+        <div class="finishArticles lg:w-[90%] sm:w-full  ">
+            <article *ngFor="let article of articles" class=" w-full flex flex-col   lg:border-l-4 lg:rounded-lg px-4   lg:border-solid lg:border-l-amber-400 lg:pb-[3rem] lg:mt-[3rem]   ">
+                <div (click)="readArticle(article._id)" class="top flex w-full justify-between mb-4  items-center  ">
+                   
+                    <div class="flex  justify-start items-center gap-4 ">
+                        <img (click)="visitProfil(article.auther)" class=" w-[30px] bg-amber-50 hover:cursor-pointer " [src]="'../../../assets/images/'+ article.autherIcone" [alt]="article.autherIcone">
+                        <div class="flex flex-col  justify-start ">
+                            <div (click)="visitProfil(article.auther)" class=" text-lg font-medium hover:cursor-pointer  ">{{article.autherName}}</div>
+                            <div *ngIf="article.collaborators.length" class=" text-xs text-gray-400 ">With {{article.collaborators.length}} others</div>
+                        </div>
+
+                     <p class=" text-gray-600 font-light " >{{article.formatDate}}</p>
+                    </div>
+                      
+                     <p [attr.rating]="article.rating.length+' people rated this'" class=" text-gray-500 rating relative hover:cursor-default " *ngIf="article.avg>=1">Rated {{article.avg}} <i class="fa-solid fa-star"></i></p>
+                </div>
+                <div (click)="readArticle(article._id)" class="mid w-full hover:cursor-pointer ">
+                    <p class=" lg:text-3xl sm:text-xl font-semibold " >{{article.title}}</p>
+                    <p class="text-[rgba(41,41,41,1)] leading[24px] :text-[17px] ellipsis famile sm:hidden ">{{article.sections[0]}}</p>
+                    <div class="  flex justify-end gap-8 pr-4 items-center ">
+                        <!-- <img src="../../../assets/images/points.png" class=" w-[25px] hover:cursor-pointer " alt=""> -->
+                       
+                        
+                    </div>
+                </div>
+                <div class="bot flex items-center justify-between sm:flex-col  ">
+                    <div class="tags flex gap-2 sm:w-full ">
+                        <div (click)="searchByTag(tag.name)" class="tag pl-4 pr-4 rounded-[15px] bg-gray-100 h-8 flex justify-center items-center hover:cursor-pointer hover:bg-gray-200 " *ngFor="let tag of article.tags" >{{tag.name}}</div>
+                    </div>
+                    <div class=" flex items-center sm:w-full lg:justify-center sm:justify-end lg:gap-4 sm:gap-8 sm:mt-2 "> 
+                        
+                        <div *ngIf="article?.likes.includes(user?._id)" >
+                            {{article.likes.length}} <i (click)="likePost(article._id,article.likes.includes(user._id) ,  articles.indexOf(article) , article.auther , article.collaborators)" class="fa-solid fa-heart text-red-500 hover:cursor-pointer "></i>
+                        </div>
+                        <div *ngIf="!article.likes.includes(user?._id)">
+                            {{article.likes.length}} <i  (click)="likePost(article._id,article.likes.includes(user._id) , articles.indexOf(article), article.auther, article.collaborators)" class="fa-regular fa-heart hover:cursor-pointer"></i>
+                        </div>
+                        <i *ngIf="!user?.readLater.includes(article?._id)" (click)="readLaterArticle(article._id)" class="fa-regular fa-bookmark text-amber-400 hover:cursor-pointer "></i>
+                        <i *ngIf="user?.readLater.includes(article?._id)"(click)="readLaterArticle(article._id)" class="fa-solid fa-bookmark text-green-600 hover:cursor-pointer "></i>
+                        <button  [matMenuTriggerFor]="afterMenu">        
+                            <i class="fa-solid fa-ellipsis"></i>
+                           
+                        </button>
+                        <mat-menu #afterMenu="matMenu" xPosition="after">
+                            <button class=" flex items-center justify-center text-[#333] " (click)="openDialog(article._id , article.title , article.shares.includes(user._id), article.auther , article.collaborators)" mat-menu-item ><i class="fa-solid fa-share mr-2"></i><span>Share Article</span></button>
+                            <button class=" flex items-center justify-center text-[#333] " (click)="attachUser(article._id,article.attachedUsers ,articles.indexOf(article) )"  mat-menu-item><span *ngIf="!article.attachedUsers.includes(user._id)"><i class="fa-solid fa-link mr-2"></i>Attach to my profil</span>
+                                <span *ngIf="article.attachedUsers.includes(user._id)"><i class="fa-solid fa-link-slash mr-2"></i>Remove attachement </span></button>
+                            <button class=" flex items-center justify-center text-[#333] " (click)="report(article._id , article.title)" mat-menu-item><i class="fa-solid fa-triangle-exclamation mr-2"></i>Report Article</button>
+
+                        </mat-menu>
+                    </div>
+                   
+                   
+                </div>
+                <hr class=" lg:hidden my-4  ">
+            </article>
+        </div>
+
+    </div>
+    <div class="righ sticky lg:top-8 lg:h-[92vh] sm:h-[10rem] flex flex-col items-center gap-4 lg:pt-12 lgw-[35%] sm:w-full ">
+        <div class=" lg:mt-8 sm:mt-4 lg:text-6xl sm:text-3xl font-semibold fami flex justify-center items-center gap-2 "><div class="flex justify-center items-center rounded-[50%] lg:text-2xl sm:text-xl w-10 h-10  bg-gray-100"><i class="fa-solid fa-bookmark  "></i></div><div>Your savings</div></div>
+        <div class="lg:text-xl font-medium fami"> You have Over {{articles.length}} Articles saved for reading later </div>
+        <div class="lg:text-xl font-medium fami">still interested ?</div>
+        <div class="top Toppics flex gap-2 flex-wrap items-center justify-center mt-8 ">
+            <div class="  " *ngFor="let Tag of tags">
+                <button (click)="searchByTag(Tag.name)" *ngIf="Tag.name !== tag" class="topic pl-4 pr-4 rounded-[20px] pt-2 pb-2 bg-gray-200  ">{{Tag.name}}</button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
